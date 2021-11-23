@@ -16,7 +16,7 @@
               <div class="right-container d-flex align-items-center w-100 h-100">
                   <div class="container m-5 mt-auto w-100 ">
                       <div class="title display-3 ">
-                          Smell <br> Test.
+                          Smell <br> heavenly.
                       </div>
                       <div class="caption mt-4">
                           Try a new fragrance today with Angel’s Scent.

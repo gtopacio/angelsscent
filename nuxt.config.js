@@ -43,21 +43,16 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/bootstrap
-    // 'bootstrap-vue/nuxt',
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     [
       '@nuxtjs/firebase',
       {
         config: {
-          apiKey: "AIzaSyDYfw206v1i4N5Hh2YPudDasAD-JWaheAA",
-          authDomain: "angel-s-scent.firebaseapp.com",
-          projectId: "angel-s-scent",
-          storageBucket: "angel-s-scent.appspot.com",
-          messagingSenderId: "486453564554",
-          appId: "1:486453564554:web:e67607b6f550658cf64973",
-          measurementId: "G-TT2DB0ZSCD"
+          apiKey: "AIzaSyA_wIoMJj59KoO0lxLuU1qROem6MeUMX-0",
+          authDomain: "angelsscent-dev.firebaseapp.com",
+          projectId: "angelsscent-dev",
+          storageBucket: "angelsscent-dev.appspot.com",
+          messagingSenderId: "620830937908",
+          appId: "1:620830937908:web:d85dfb1c46bf05e59b0b61"
         },
         services: {
           firestore: true,
@@ -74,11 +69,6 @@ export default {
         }
       }
     ],
-    // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-    // https://go.nuxtjs.dev/content
-    '@nuxt/content',
-    
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

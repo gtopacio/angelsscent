@@ -1,17 +1,18 @@
 <template>
     <div>
-        <div class="payment-header text-center regular text-uppercase py-2">
-            Payment Form
+        <div class="payment-header py-3">
+            <div class="text-center regular text-uppercase">
+                Online Payment Form
+            </div>
+            <div class="text-center regular fs-6">
+                Complete the information below to submit your proof of payment.
+            </div>
         </div>
-        <div class="container-fluid d-flex flex-column regular text-uppercase">
+        <div class="container-fluid d-flex flex-column regular">
             <div class="shadow payment-box mt-3 mb-4 px-3 py-2 mx-auto w-75">
                 <form class="px-4" action="https://formspree.io/f/xayavyoj" method="POST">
                     <div class="row px-4">
-                        <div class="col-sm-3 my-3">
-                            <label for="orderInput" class="form-label">Order Number</label>
-                            <input type="text" class="form-control" id="orderInput"  name="Order number" required>
-                        </div>
-
+                        <legend class="my-3">Contact Information</legend>
                     </div>
                     <div class="row px-4">
                         <div class="col-sm-6 my-3">
@@ -23,42 +24,53 @@
                             <input type="lastName" class="form-control" id="lastName" name="Last Name" required>
                         </div>
                     </div>
-                    <div class="row px-4 my-3">
-                        <div class="col-sm-6 my-3">
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
                             <label for="emailInput" class="form-label">Email Address</label>
                             <input type="email" class="form-control" id="emailInput" name="Email" required>
                         </div>
-                        <div class="col-sm-6 my-3">
+                    </div>
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
                             <label for="contactInput" class="form-label">Contact Number</label>
                             <input type="number" class="form-control" id="contactInput" name="Contact"  required>
                         </div>
                     </div>
-
-                    <div class="row px-4 my-3 d-flex justify-content-between">
-                        <div class="col-sm-3 my-3">
-                            <label for="totalInput" class="form-label">Total Amount</label>
-                            <input type="number" class="form-control" id="totalInput" name= "Total" required>
+                    <hr class="my-4">
+                    <div class="row px-4">
+                        <legend class="my-3">Order Information</legend>
+                    </div>
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
+                            <label for="orderInput" class="form-label">Order Number</label>
+                            <input type="text" class="form-control" id="orderInput"  name="Order number" required>
                         </div>
-                        <div class="col-sm-6 my-3">
-                            <label for="gcashInput" class="form-label">Gcash Transaction Number</label>
+                    </div>
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
+                            <label for="gcashInput" class="form-label">GCash Transaction Number</label>
                             <input type="number" class="form-control" id="gcashInput" name="Gcash Number" required>
                         </div>
                     </div>
-
-                    <div class="row px-4 my-3 pb-1">
-                        <div class="col-sm-6">
-                            <label for="formFile">Screenshot / Receipt for proof of transaction</label>
-                            <input type="file" id="formFile" accept="image/png, image/gif, image/jpeg" name="File" required>
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
+                            <label for="totalInput" class="form-label">Total Amount</label>
+                            <input type="number" class="form-control" id="totalInput" name= "Total" required>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="shadow-sm text-uppercase btn btn-light submit-btn regular mt-2 px-4 py-2">Submit Form</button>
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
+                            <label for="formFile" class="form-label">Screenshot / Receipt for proof of transaction</label>
+                            <input type="file" id="formFile" class="form-control" accept="image/png, image/gif, image/jpeg" name="File" required>
+                        </div>
+                    </div>
+                    <div class="row px-4">
+                        <div class="my-3">
+                            <button type="submit" class="shadow-sm btn btn-light submit-btn regular mt-2 py-2">Submit Form</button>
+                        </div>
                     </div>
                 </form>
-            </div>
-            
-            
-            
+            </div>            
         </div>
     </div>
 </template>

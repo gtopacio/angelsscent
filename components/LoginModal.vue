@@ -82,6 +82,7 @@ export default {
 
                     $("#login").hide()
                     $('.modal-backdrop').remove();
+                    $('body').css({overflow: 'visible'});
             } catch (e) {
                 alert(e)
             }

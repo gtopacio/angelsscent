@@ -5,6 +5,14 @@
             <div class="modal-content round">
                 <form @submit="submit">
                     <div class="container-fluid text-start d-flex flex-column regular text-uppercase p-5 w-100 bg">
+                        
+                        <div class="small text-uppercase">
+                        <legend class="my-8">Edit Product</legend>
+                        </div>
+                        <hr class="my-1">
+                        
+                        <br><br>
+
                         <div class="row">
                             <div class="col-sm-3">
                                 <p>Product Photo</p>
@@ -18,7 +26,7 @@
                                 <p>Product Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <input v-model="name" class="w-75 border border-secondary" type="text" required>
+                                <input v-model="name" class="form-control" type="text" required>
                             </div>
                         </div>
                         <div class="row mt-3 pt-2">
@@ -26,91 +34,93 @@
                                 <p>Product Description</p>
                             </div>
                             <div class="col-sm-9">
-                                <textarea v-model="description" class="form-control border border-secondary" rows="3"></textarea>
+                                <textarea v-model="description" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Length</p>
+
+
+                        <div class="small text-uppercase py-2">
+                        <legend class="my-3">Shipping Requirements</legend>
+                        </div>
+                        <hr class="my-1">
+
+                        <div class="row px-2">
+                            <div class="col-sm-6 my-3">
+                                <label for="length" class="form-label">Length</label>
+                                <input v-model="length" class="form-control" type="number" min="1" required>
                             </div>
-                            <div class="col-sm-9">
-                                <input v-model="length" class="w-75 border border-secondary" type="number" min="1" required>
+                            
+                            <div class="col-sm-6 my-3">
+                                <label for="width" class="form-label">Width</label>
+                                <input v-model="width" class="form-control" type="number" min="1" required>
                             </div>
                         </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Width</p>
+
+                        <div class="row px-2">
+                            <div class="col-sm-6 my-3">
+                                <label for="height" class="form-label">Height</label>
+                                <input v-model="height" class="form-control" type="number" min="1" required>
                             </div>
-                            <div class="col-sm-9">
-                                <input v-model="width" class="w-75 border border-secondary" type="number" min="1" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Height</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <input v-model="height" class="w-75 border border-secondary" type="number" min="1" required>
+                            
+                            <div class="col-sm-6 my-3">
+                                <label for="weight" class="form-label">Weight (in ML)</label>
+                                <input v-model="weight" class="form-control" type="number" min="1" required>
                             </div>
                         </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Weight (In ml)</p>
+
+                        <div class="small text-uppercase py-2">
+                        <legend class="my-3">Listing Requirements</legend>
+                        </div>
+                        <hr class="my-1">
+
+                        <div class="row px-2">
+                            <div class="col-sm-6 my-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input v-model="price" class="form-control" type="number"  min="1" required>
                             </div>
-                            <div class="col-sm-9">
-                                <input v-model="weight" class="w-75 border border-secondary" type="number" min="1" required>
+                            
+                            <div class="col-sm-6 my-3">
+                                <label for="qty" class="form-label">Quantity</label>
+                                <input v-model="qty" class="form-control" type="number" min="0" required>
                             </div>
                         </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Price</p>
+
+                        <div class="row px-2">
+                            <div class="col-sm-6 my-3">
+                                <label for="displayoption" class="form-label">Status</label>
+                                <div v-if="display == 'listed'" class="col-sm-12">
+                                    <select :id="'displayoption'+id" class="form-select">
+                                        <option value="1" selected >LISTED</option>
+                                        <option value="2" >HIDDEN</option>
+                                    </select>
+                                </div>
+                                <div v-if="display == 'hidden'" class="col-sm-12">
+                                    <select :id="'displayoption'+id" class="form-select">
+                                        <option value="1"  >LISTED</option>
+                                        <option value="2" selected>HIDDEN</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-sm-9">
-                                <input v-model="price" class="w-75 border border-secondary" type="number"  min="1" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Quantity</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <input v-model="qty" class="w-75 border border-secondary" type="number" min="0" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Status</p>
-                            </div>
-                            <div v-if="display == 'listed'" class="col-sm-3">
-                                <select :id="'displayoption'+id" class="form-select border border-secondary">
-                                    <option value="1" selected >LISTED</option>
-                                    <option value="2" >HIDDEN</option>
-                                </select>
-                            </div>
-                            <div v-if="display == 'hidden'" class="col-sm-3">
-                                <select :id="'displayoption'+id" class="form-select border border-secondary">
-                                    <option value="1"  >LISTED</option>
-                                    <option value="2" selected>HIDDEN</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mt-3 pt-2">
-                            <div class="col-sm-3">
-                                <p>Tag</p>
-                            </div>
-                            <div v-if="tag == 'men'" class="col-sm-3">
-                                <select :id="'tagoption'+id" class="form-select border border-secondary">
-                                    <option value="1" selected>MEN</option>
-                                    <option value="2" >WOMEN</option>
-                                </select>
-                            </div>
-                            <div v-if="tag == 'women'" class="col-sm-3">
-                                <select :id="'tagoption'+id" class="form-select border border-secondary">
-                                    <option value="1">MEN</option>
-                                    <option value="2" select>WOMEN</option>
-                                </select>
+                            
+                            <div class="col-sm-6 my-3">
+                                <label for="tagoption" class="form-label">Tag</label>
+                                <div v-if="tag == 'men'" class="col-sm-12">
+                                    <select :id="'tagoption'+id" class="form-select">
+                                        <option value="1" selected>MEN</option>
+                                        <option value="2" >WOMEN</option>
+                                    </select>
+                                </div>
+                                <div v-if="tag == 'women'" class="col-sm-12">
+                                    <select :id="'tagoption'+id" class="form-select">
+                                        <option value="1">MEN</option>
+                                        <option value="2" select>WOMEN</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                       
+                        
+                       
                         <!-- <div class="row mt-3 pt-2">
                             <div class="col-sm-3">
                                 <p>Tag</p>

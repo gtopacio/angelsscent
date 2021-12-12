@@ -9,109 +9,102 @@
                 <DashboardNavbar />
                 <div class="col-10">
                     <div class="shadow container-fluid data-bg p-3 rounded-3">
-                        <div class="section-title medium text-uppercase py-3">
+                        <div class="section-title medium text-uppercase py-3 px-4">
                             Add Product
                         </div>
                         <div id="content" class="container-fluid d-flex flex-column regular text-uppercase p-5 w-100 bg justify-content-center">
                             <form ref="productForm" action="" @submit="submit">
                                 <div class="row mt-3 pt-2 d-flex">
-                                    <div class="col-sm-2">
-                                        <p>Product Name</p>
+                                    <div class="col-sm-6 my-3">
+                                        <label for="productName" class="form-label">Product Name</label>
+                                        <input v-model="name" class="form-control" type="text" id="productName" required>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="name" class="w-75 border border-secondary" type="text" id="productName" required>
-                                    </div>
-                                    <div class="col-sm-6"></div>
                                 </div>
+
                                 <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Product Description</p>
+
+                                    <div class="col-sm-6 my-3">
+                                        <label for="length" class="form-label">Product Description</label>
+                                        <textarea v-model="description" id="productDesc" class="form-control" rows="3" required></textarea>
                                     </div>
-                                    <div class="col-sm-5">
-                                        <textarea v-model="description" id="productDesc" class="form-control border border-secondary" rows="3" required></textarea>
-                                    </div>
-                                    <div class="col-sm-5"></div>
+                                    
                                 </div>
-                                <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Length</p>
+                    <br><br>
+                    <hr class="my-4">
+
+                    <div class="small text-uppercase py-2">
+                        <legend class="my-3">Shipping Requirements</legend>
+                    </div>
+
+                                <div class="row px-2">
+                                    <div class="col-sm-6 my-3">
+                                        <label for="length" class="form-label">Length</label>
+                                        <input v-model="length" class="form-control" type="number" id="length" min="1" required>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="length" class="w-75 border border-secondary" type="number" id="length" min="1" required>
+                                    
+                                    <div class="col-sm-6 my-3">
+                                        <label for="width" class="form-label">Width</label>
+                                        <input v-model="width" class="form-control" type="number" id="width" min="1" required>
                                     </div>
-                                    <div class="col-sm-6"></div>
                                 </div>
-                                <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Width</p>
+                                    
+
+                                <div class="row px-2">
+                                    <div class="col-sm-6 my-3">
+                                        <label for="height" class="form-label">Height</label>
+                                        <input v-model="height" class="form-control" type="number" id="height" min="1" required>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="width" class="w-75 border border-secondary" type="number" id="width" min="1" required>
+                                    
+                                    <div class="col-sm-6 my-3">
+                                        <label for="weight" class="form-label">Weight (in ML)</label>
+                                        <input v-model="weight" class="form-control" type="number" id="weight" min="1" required>
                                     </div>
-                                    <div class="col-sm-6"></div>
                                 </div>
-                                <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Height</p>
+
+                    <br><br>
+                    <hr class="my-4">
+
+                    <div class="small text-uppercase py-2">
+                        <legend class="my-3">Listing Requirements</legend>
+                    </div>
+                    
+
+                            <div class="row px-2">
+                                    <div class="col-sm-6 my-3">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input v-model="price" class="form-control" type="number" id="price" min="1" required>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="height" class="w-75 border border-secondary" type="number" id="height" min="1" required>
+                                    
+                                    <div class="col-sm-6 my-3">
+                                        <label for="quantity" class="form-label">Quantity</label>
+                                        <input v-model="qty" class="form-control" type="number" id="quantity" min="1" required>
                                     </div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Weight (In ml)</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="weight" class="w-75 border border-secondary" type="number" id="weight" min="1" required>
-                                    </div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Price</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="price" class="w-75 border border-secondary" type="number" id="price" min="1" required>
-                                    </div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <div class="row mt-3 pt-2">
-                                    <div class="col-sm-2">
-                                        <p>Quantity</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input v-model="qty" class="w-75 border border-secondary" type="number" id="quantity" min="1" required>
-                                    </div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-sm-2">
-                                        <p>Product Photo</p>
-                                    </div>
-                                    <div class="col-sm-4">
+                            </div>
+
+                            <div class="row px-2">
+                                    <div class="col-sm-6 my-3">
+                                        <label for="formFile" class="form-label">Product Photo</label>
                                         <input class="form-control form-control-sm" type="file" @change="uploadImage" id="formFile" accept="image/png, image/gif, image/jpeg" required>
                                     </div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-                                <div class="row mt-3 mb-4">
-                                     <div class="col-sm-2">
-                                        <p>Tag</p>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select id="tagoption" class="form-select border border-secondary">
+                                    
+                                    <div class="col-sm-6 my-3">
+                                        <label for="tagoption" class="form-label">Tag</label>
+                                        <select id="tagoption" class="form-select ">
                                             <option value="1">MEN</option>
                                             <option value="2">WOMEN</option>
                                         </select>
+
+
                                     </div>
-                                </div>
+                            </div>
+
+                                <br><br>
                                 <div class="row" mt-3>
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-4">
-                                        <button type="submit" class="btn w-75 pt py-2 px-3 text-uppercase" id = "submit">Add product</button>
+                                    <div class="col-sm-12"></div>
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn w-100 pt py-2 px-3 text-uppercase" id = "submit">Add product</button>
                                     </div>
-                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-12"></div>
                                 </div>
                             </form>
                         </div>

@@ -1,11 +1,21 @@
 <template>
     <div>
-        <div class="contact-header text-center regular text-uppercase py-2">
-            Contact Us
+        <div class="contact-header py-3">
+            <div class="text-center regular text-uppercase">
+                Contact Us
+            </div>
+
+            <div class="text-center regular fs-6">
+                Send us a message and we will be in touch within one business day.
+            </div>
         </div>
-        <div class="container-fluid d-flex flex-column regular text-uppercase">
+
+        
+
+        <div class="container-fluid d-flex flex-column regular">
             <form class="px-4" action="https://formspree.io/f/mjvjlvwy" method="POST">
                 <div class="shadow contact-box mt-4 mb-2 p-3 mx-auto w-75">
+
                     <div class="row px-4">
                         <div class="col-sm-6 my-3">
                             <label for="firstNameInput" class="form-label">First Name</label>
@@ -18,15 +28,19 @@
                         </div>
                     </div>
                     <div class="row px-4">
-                        <div class="col-sm-6 my-3">
+                        <div class="col-sm-12 my-3">
                             <label for="emailInput" class="form-label">Email</label>
                             <input name="Email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" required>
                         </div>
-                        <div class="col-sm-6 my-3">
+                    </div>
+
+                    <div class="row px-4">
+                        <div class="col-sm-12 my-3">
                             <label for="contactNumberInput" class="form-label">Contact Number</label>
                             <input name="Contact Number" type="number" class="form-control" id="contactNumberInput" aria-describedby="emailHelp" requried>
                         </div>
                     </div>
+
                     <div class="row px-4 my-3">
                         <div class="col">
                             <label for="subjectInput" class="form-label">Subject</label>
@@ -39,10 +53,12 @@
                             <textarea name="Message" class="form-control w-100" placeholder="" id="message" style="height: 80px" required></textarea>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-center">
+                    <button type="submit" class="shadow-sm text-uppercase btn btn-light submit-btn regular mt-2 px-4 py-2 col-sm-12 my-3">Submit Inquiry</button>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="shadow-sm text-uppercase btn btn-light submit-btn regular mt-2 px-4 py-2">Submit Inquiry</button>
-                </div>
+                
             </form>
         </div>
     </div>

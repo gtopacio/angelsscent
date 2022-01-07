@@ -47,9 +47,9 @@
 
                                         <label class="text-size medium text-uppercase mt-2" for="province">Province</label>
                                         <input class="form-control form-format mb-2" v-model="province" type="text" required>
-                                        
+
                                         <label class="text-size medium text-uppercase mt-2" for="zipcode">Zipcode</label>
-                                        <input class="form-control form-format mb-2" v-model="zipcode" type="number" required>
+                                        <input class="form-control form-format mb-2" v-model="zipcode" type="number" min="0" required>
                                     </div>
                                 </div>
 
@@ -99,7 +99,7 @@ export default {
         },
         async submit(event) {
             event.preventDefault()
-            
+
             this.$store.commit('SET_NEWUSER', true)
             // this.$store.commit('SET_CONCESSIONAIRE', false)
 

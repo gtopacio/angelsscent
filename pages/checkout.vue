@@ -7,7 +7,7 @@
             <NuxtLink class="text-uppercase return regular" to="/Cart">
                 Return To Cart
             </NuxtLink>
-        
+
             <div class="row">
                 <div class="col my-3">
                     <div class="order-box shadow container-fluid p-4">
@@ -27,7 +27,7 @@
                                         <td>
                                             <div>{{ item.name }}</div>
                                         </td>
-                                        <td>{{ item.weight }}ML</td>
+                                        <td>{{ item.weight }}g</td>
                                         <td>{{ item.qty }}</td>
                                         <td>₱{{ item.price }}.00</td>
                                     </tr>
@@ -49,10 +49,10 @@
                                         </td>
                                         <td></td>
                                         <td></td>
-                                        <td>{{ totalWeight }}ML</td>
+                                        <td>{{ totalWeight }}g</td>
                                     </tr>
                                 </tbody>
-            
+
                                 <tbody class="regular">
                                     <tr>
                                         <td>Subtotal</td>
@@ -60,12 +60,43 @@
                                         <td></td>
                                         <td>₱{{ total }}.00</td>
                                     </tr>
-                                    <tr>
-                                        <td>Shipping Fee</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>₱{{ shippingPrice }}.00</td>
-                                    </tr>
+                                </tbody>
+
+                                <tbody class="regular">
+                                  <!--
+                                  <tr :key="box.id" v-for="box in boxes">
+                                      <td>
+                                          <div>{{ box.name }}</div>
+                                      </td>
+                                      <td></td>
+                                      <td>{{ box.qty }}</td>
+                                      <td>₱{{ box.price }}.00</td>
+                                  </tr>
+                                  -->
+                                  <tr>
+                                      <td>Kilo Box Small</td>
+                                      <td></td>
+                                      <td>1</td>
+                                      <td>₱123.00</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Kilo Box Large</td>
+                                      <td></td>
+                                      <td>1</td>
+                                      <td>₱400.00</td>
+                                  </tr>
+                                  <tr>
+                                      <td>NCR</td>
+                                      <td></td>
+                                      <td></td>
+                                      <td>₱400.00</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Shipping Fee</td>
+                                      <td></td>
+                                      <td></td>
+                                      <td>₱{{ shippingPrice }}.00</td>
+                                  </tr>
                                 </tbody>
 
                                 <tfoot class="regular">
@@ -84,7 +115,7 @@
 
                     <div class="order-box shadow container-fluid p-4">
                         <div class="order-title medium">CUSTOMER INFORMATION</div>
-                        
+
                         <div class="my-3">
                             <div class="text-uppercase">Name</div>
                             <div class="details regular">{{ data.fName }} {{ data.lName }}</div>
@@ -104,9 +135,13 @@
                             <div class="text-uppercase">Shipping Address</div>
                             <div class="details regular">{{ data.streetAdd}} {{ data.city }} {{ data.province}} {{ data.zipcode }}</div>
                         </div>
+
+                        <NuxtLink to="/account/info">
+                          <a class="nav-link">Change Shipping Address</a>
+                        </NuxtLink>
                     </div>
-                    
-                    
+
+
                 </div>
 
 
@@ -122,7 +157,7 @@
                                 3. Enter the following Account Details: <br/>
                                 <center>
                                 Angela Sophia A. <br/>
-                                09123456789<br/> 
+                                09123456789<br/>
                                 </center>
                                 4. Send receipt to: angelsscent@gmail.com <br/>
                                 5. Take a screenshot of the successful payment transaction and upload it to our
@@ -130,13 +165,13 @@
 
                                 Note: Please settle your payment within 7 days and submit your proof of payment using the form, otherwise we cannot process your order.
                                 To track your order fulfillment, please check your account page for updates. We will notify via email regarding your tracking number.
-                                
+
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
                     <br/>
-                    <div v-if="items.length > 0" class="mt-3 d-flex justify-content-around"> 
+                    <div v-if="items.length > 0" class="mt-3 d-flex justify-content-around">
                         <button type="button" class="shadow text-uppercase btn btn-light button regular" data-bs-toggle="modal" data-bs-target="#checkOut">Complete Order</button>
                     </div>
 
@@ -173,12 +208,12 @@
 import $ from 'jquery'
 
 export default {
-    
+
     computed: {
         shippingPrice(){
             if(this.totalWeight < 1000)
                 return 100
-            else    
+            else
                 return 200
         },
         items() {
@@ -211,8 +246,8 @@ export default {
                 this.$fire.firestore.collection("orders").add({
                     userId: this.$store.state.user.uid,
                     name: this.data.fName + ' ' + this.data.lName,
-                    email: this.data.email, 
-                    address: this.data.streetAdd+ ' ' + this.data.city + ' ' + this.data.province + ' ' + this.data.zipcode, 
+                    email: this.data.email,
+                    address: this.data.streetAdd+ ' ' + this.data.city + ' ' + this.data.province + ' ' + this.data.zipcode,
                     contactNo: this.data.contactNo,
                     paymentStatus: "Unpaid",
                     orderStatus: "Pending",
@@ -222,7 +257,7 @@ export default {
                     items: items,
                     dateOrdered: this.$fireModule.firestore.Timestamp.now()
                 })
-                
+
                 for(var i = 0; i < items.length; i++){
                     this.$fire.firestore.collection("products").doc(items[i].productid).update({
                         qty: this.$fireModule.firestore.FieldValue.increment(-items[i].qty)

@@ -27,11 +27,11 @@
 
                             <div class="row-md-12 my-4">
                                  <label class="medium text-uppercase" for="zipcode">Zipcode</label>
-                                <input v-model="zipcode" maxlength = "46" type="number" class="form-control form-format" id="zipcode" placeholder="Zipcode" required>
+                                <input v-model="zipcode" maxlength = "46" type="number" min="0" class="form-control form-format" id="zipcode" placeholder="Zipcode" required>
                             </div>
                         </div>
 
-                        
+
                     </div>
 
                     <div class="container-fluid d-flex justify-content-center my-4">
@@ -59,9 +59,9 @@ import $ from 'jquery'
 
 export default {
     props:{
-        id: String, 
+        id: String,
         streetAdd: String,
-        city: String, 
+        city: String,
         province: String,
         zipcode: String 
     },
@@ -71,14 +71,14 @@ export default {
              try {
                 this.$fire.firestore.collection("users").doc(this.id).update({
                     streetAdd: this.streetAdd.trim(),
-                    city: this.city.trim(), 
+                    city: this.city.trim(),
                     province: this.province.trim(),
                     zipcode: this.zipcode.trim() 
                 })
                 this.$router.app.refresh()
                 $('#editShipping').hide()
                 $('.modal-backdrop').remove();
-                 
+
             } catch (e) {
                 alert(e)
             }

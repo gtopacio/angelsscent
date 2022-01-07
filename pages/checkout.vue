@@ -62,40 +62,30 @@
                                     </tr>
                                 </tbody>
 
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Box Name</th>
+                                        <th scope="col">Box Fee</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
                                 <tbody class="regular">
-                                  <!--
-                                  <tr :key="box.id" v-for="box in boxes">
+                                  
+                                  <tr :key="box.id" v-for="box in data.boxes">
                                       <td>
                                           <div>{{ box.name }}</div>
                                       </td>
-                                      <td></td>
+                                      <td>₱{{ box.boxFee }}</td>
                                       <td>{{ box.qty }}</td>
                                       <td>₱{{ box.price }}.00</td>
                                   </tr>
-                                  -->
+                                 
                                   <tr>
-                                      <td>Kilo Box Small</td>
-                                      <td></td>
-                                      <td>1</td>
-                                      <td>₱123.00</td>
-                                  </tr>
-                                  <tr>
-                                      <td>Kilo Box Large</td>
-                                      <td></td>
-                                      <td>1</td>
-                                      <td>₱400.00</td>
-                                  </tr>
-                                  <tr>
-                                      <td>NCR</td>
+                                      <td>Shipping Fee ({{data.region}})</td>
                                       <td></td>
                                       <td></td>
-                                      <td>₱400.00</td>
-                                  </tr>
-                                  <tr>
-                                      <td>Shipping Fee</td>
-                                      <td></td>
-                                      <td></td>
-                                      <td>₱{{ shippingPrice }}.00</td>
+                                      <td>₱{{ data.shippingPrice }}.00</td>
                                   </tr>
                                 </tbody>
 
@@ -104,7 +94,7 @@
                                         <td>Total</td>
                                         <td></td>
                                         <td></td>
-                                        <td>₱{{ grandTotal }}.00</td>
+                                        <td>₱{{ data.grandTotal }}.00</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -222,9 +212,6 @@ export default {
         total() {
             return this.$store.state.cart.total
         },
-        grandTotal(){
-            return this.$store.state.cart.total + this.shippingPrice
-        },
         totalWeight() {
             return this.$store.state.cart.totalWeight
         },
@@ -234,8 +221,129 @@ export default {
     },
 
     async asyncData({ $fire, store }){
+
+        function residueBox({weight, id, region}){
+
+            if(weight <= 0)
+                return null;
+
+            if(weight > 5){
+                let largePrice = {
+                    "NCR": 420,
+                    "N. LUZON": 620,
+                    "S. LUZON": 620,
+                    "VISAYAS": 720,
+                    "MINDANAO": 720,
+                    "ISLANDER": 720
+                }
+                return {
+                    id,
+                    name: "Kilobox Large",
+                    price: largePrice[region],
+                    qty: 1,
+                    boxFee: 35
+                };
+            }
+
+            if(weight > 3){
+                let mediumPrice = {
+                    "NCR": 220,
+                    "N. LUZON": 320,
+                    "S. LUZON": 320,
+                    "VISAYAS": 370,
+                    "MINDANAO": 370,
+                    "ISLANDER": 370
+                }
+                return {
+                    id,
+                    name: "Kilobox Medium",
+                    price: mediumPrice[region],
+                    qty: 1,
+                    boxFee: 20
+                };
+            }
+
+            if(weight > 1){
+                let smallPrice = {
+                    "NCR": 160,
+                    "N. LUZON": 190,
+                    "S. LUZON": 190,
+                    "VISAYAS": 200,
+                    "MINDANAO": 200,
+                    "ISLANDER": 200
+                }
+                return {
+                    id,
+                    name: "Kilobox Small",
+                    price: smallPrice[region],
+                    qty: 1,
+                    boxFee: 20
+                };
+            }
+
+            let miniPrice = {
+                "NCR": 120,
+                "N. LUZON": 150,
+                "S. LUZON": 150,
+                "VISAYAS": 160,
+                "MINDANAO": 160,
+                "ISLANDER": 160
+            };
+
+            return {
+                id,
+                name: "Kilobox Mini",
+                price: miniPrice[region],
+                qty: 1,
+                boxFee: 15
+            };
+
+        }
+
+        function getBoxes(){
+            let boxes = [];
+            let weight = store.state.cart.totalWeight / 1000;
+            let xlQty = 0;
+            let id = 1;
+            let xlPrice = {
+                "NCR": 820,
+                "N. LUZON": 1220,
+                "S. LUZON": 1220,
+                "VISAYAS": 1420,
+                "MINDANAO": 1420,
+                "ISLANDER": 1420
+            }
+            while(weight >= 19 || weight > 10){
+                xlQty++;
+                weight -= 19;
+            }
+
+            if(xlQty > 0){
+                boxes.push({
+                    id,
+                    qty: xlQty,
+                    name: "Kilobox XL",
+                    price: xlQty * xlPrice[data.region],
+                    boxFee: 60 * xlQty
+                });
+                id++;
+            }
+
+            let residue = residueBox({weight, id, region: data.region});
+            if(residue)
+                boxes.push(residue);
+
+            return boxes;
+        } 
         let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
         let data = await docRef.get().then(doc => doc.data())
+        let boxes = getBoxes()
+        data.boxes = boxes
+        data.shippingPrice = 0;
+        for(let box of boxes){
+            data.shippingPrice += box.price + box.boxFee
+        }
+        data.grandTotal = data.shippingPrice + store.state.cart.total
         return{ data }
     },
     methods: {
@@ -252,8 +360,9 @@ export default {
                     paymentStatus: "Unpaid",
                     orderStatus: "Pending",
                     total: this.total,
-                    shippingPrice: this.shippingPrice,
-                    grandTotal: this.grandTotal,
+                    shippingPrice: this.data.shippingPrice,
+                    grandTotal: this.data.grandTotal,
+                    boxes: this.data.boxes,
                     items: items,
                     dateOrdered: this.$fireModule.firestore.Timestamp.now()
                 })

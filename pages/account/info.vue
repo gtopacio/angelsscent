@@ -67,6 +67,11 @@
                                     </div>
 
                                     <div class="my-2">
+                                        <div class="text-uppercase medium">Region</div>
+                                        <div class="section-body medium">{{ data.region }}</div>
+                                    </div>
+
+                                    <div class="my-2">
                                         <div class="text-uppercase medium">Zipcode</div>
                                         <div class="section-body medium">{{ data.zipcode }}</div>
                                     </div>
@@ -79,6 +84,7 @@
                                         :streetAdd="data.streetAdd"
                                         :city="data.city"
                                         :province="data.province"
+                                        :region="data.region"
                                         :zipcode="data.zipcode"/>
                                 </div>
                             </div>

@@ -87,26 +87,6 @@
                                       <td></td>
                                       <td>₱{{ data.shippingPrice }}.00</td>
                                   </tr>
-
-                                  <!-- <tr>
-                                      <td>Kilo Box Small</td>
-                                      <td></td>
-                                      <td>1</td>
-                                      <td>₱123.00</td>
-                                  </tr>
-                                  <tr>
-                                      <td>Kilo Box Large</td>
-                                      <td></td>
-                                      <td>1</td>
-                                      <td>₱400.00</td>
-                                  </tr>
-                                  <tr>
-                                      <td>NCR</td>
-                                      <td></td>
-                                      <td></td>
-                                      <td></td>
-                                  </tr>
-                                   -->
                                 </tbody>
 
                                 <tfoot class="regular">

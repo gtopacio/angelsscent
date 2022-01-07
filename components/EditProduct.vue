@@ -5,12 +5,12 @@
             <div class="modal-content round">
                 <form @submit="submit">
                     <div class="container-fluid text-start d-flex flex-column regular text-uppercase p-5 w-100 bg">
-                        
+
                         <div class="small text-uppercase">
                         <legend class="my-8">Edit Product</legend>
                         </div>
                         <hr class="my-1">
-                        
+
                         <br><br>
 
                         <div class="row">
@@ -49,7 +49,7 @@
                                 <label for="length" class="form-label">Length</label>
                                 <input v-model="length" class="form-control" type="number" min="1" required>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="width" class="form-label">Width</label>
                                 <input v-model="width" class="form-control" type="number" min="1" required>
@@ -61,7 +61,7 @@
                                 <label for="height" class="form-label">Height</label>
                                 <input v-model="height" class="form-control" type="number" min="1" required>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="weight" class="form-label">Weight (in ML)</label>
                                 <input v-model="weight" class="form-control" type="number" min="1" required>
@@ -78,7 +78,7 @@
                                 <label for="price" class="form-label">Price</label>
                                 <input v-model="price" class="form-control" type="number"  min="1" required>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="qty" class="form-label">Quantity</label>
                                 <input v-model="qty" class="form-control" type="number" min="0" required>
@@ -101,7 +101,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="tagoption" class="form-label">Tag</label>
                                 <div v-if="tag == 'men'" class="col-sm-12">
@@ -113,14 +113,14 @@
                                 <div v-if="tag == 'women'" class="col-sm-12">
                                     <select :id="'tagoption'+id" class="form-select">
                                         <option value="1">MEN</option>
-                                        <option value="2" select>WOMEN</option>
+                                        <option value="2" selected>WOMEN</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                       
-                        
-                       
+
+
+
                         <!-- <div class="row mt-3 pt-2">
                             <div class="col-sm-3">
                                 <p>Tag</p>
@@ -135,7 +135,7 @@
                                 </ul>
                             </div>
                         </div> -->
-                        
+
                         <div class="row mt-3 pt-5 w-100 d-flex justify-content-center">
                             <button type="submit" class="btn btn-lg btn-block w-50 save-btn btn-outline-light text-uppercase">Save Changes</button>
                         </div>
@@ -157,14 +157,14 @@ export default {
     },
     props:{
         id: String,
-        name: String, 
-        description: String, 
-        length: Number, 
-        width: Number, 
+        name: String,
+        description: String,
+        length: Number,
+        width: Number,
         height: Number,
-        weight: Number, 
-        price: Number, 
-        qty: Number, 
+        weight: Number,
+        price: Number,
+        qty: Number,
         display: String,
         tag: String
     },
@@ -179,7 +179,7 @@ export default {
             var displayNum = e.options[e.selectedIndex].value;
             var t = document.getElementById("tagoption"+this.id);
             var tagNum = t.options[t.selectedIndex].value;
-            
+
             console.log(this.image)
             if( displayNum == 1)
                 displayStatus = 'listed'
@@ -192,18 +192,21 @@ export default {
             if(this.image == null){
                 try {
                     this.$fire.firestore.collection("products").doc(this.id).update({
-                        name: this.name.trim(), 
+                        name: this.name.trim(),
                         description: this.description.trim(),
-                        length: parseInt(this.length), 
-                        width: parseInt(this.width),  
+                        length: parseInt(this.length),
+                        width: parseInt(this.width),
                         height: parseInt(this.height),
-                        weight: parseInt(this.weight), 
-                        price: parseInt(this.price), 
-                        qty: parseInt(this.qty), 
+                        weight: parseInt(this.weight),
+                        price: parseInt(this.price),
+                        qty: parseInt(this.qty),
                         tag: tagStatus,
                         display: displayStatus
                     })
-                    
+                    this.$router.app.refresh()
+                    $('#edit-modal'+this.id).hide()
+                    $('.modal-backdrop').remove();
+
                 } catch (e) {
                     alert(e)
                 }
@@ -211,25 +214,25 @@ export default {
             else{
                 try {
                     this.$fire.firestore.collection("products").doc(this.id).update({
-                        name: this.name.trim(), 
+                        name: this.name.trim(),
                         description: this.description.trim(),
-                        length: parseInt(this.length), 
-                        width: parseInt(this.width),  
+                        length: parseInt(this.length),
+                        width: parseInt(this.width),
                         height: parseInt(this.height),
-                        weight: parseInt(this.weight), 
-                        price: parseInt(this.price), 
-                        qty: parseInt(this.qty), 
+                        weight: parseInt(this.weight),
+                        price: parseInt(this.price),
+                        qty: parseInt(this.qty),
                         tag: tagStatus,
                         display: displayStatus,
                         img: this.image
                     })
-                    
+
                 } catch (e) {
                     alert(e)
                 }
             }
-            
-            this.$router.app.refresh()         
+
+            this.$router.app.refresh()
         },
         uploadImage(e){
             let file = e.target.files[0]

@@ -28,7 +28,7 @@
                                         <td><img :src="item.img" class="img-fluid rounded"></td>
                                         <td class="text-left">
                                             <div>{{ item.name }}</div>
-                                            <div class="light">{{ item.weight }}ML</div>
+                                            <div class="light">{{ item.weight }}g</div>
                                         </td>
                                         <td>₱{{ item.price }}.00</td>
                                         <td>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="row d-flex flex-row my-2">
                                 <div class="col">Total Weight</div>
-                                <div class="col">{{ totalWeight }}ML</div>
+                                <div class="col">{{ totalWeight }}g</div>
                             </div>
                         </div>
                     </div>
@@ -123,10 +123,10 @@ export default {
                 this.$store.commit('cart/decreaseQty', id)
             }
         },
-        onDelete(id){    
+        onDelete(id){
             let item = this.items.find(obj => obj.id === id)
-            this.$store.commit('cart/remove', { 
-                id: item.id, 
+            this.$store.commit('cart/remove', {
+                id: item.id,
                 uid: this.$fire.auth.currentUser.uid
             })
             console.log(this.$fire.auth.currentUser.uid)
@@ -160,6 +160,7 @@ export default {
                     if(doc.exists){
                         if( cartQty > doc.data().qty){
                             alert("Quantity for " + doc.data().name + " exceeds number of available in stock")
+                            this.$router.push('/cart')
                         }
                         else{
                             this.$router.push('/checkout')

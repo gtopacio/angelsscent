@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="col-sm-6 my-3">
-                                <label for="weight" class="form-label">Weight (in ML)</label>
+                                <label for="weight" class="form-label">Weight (in g)</label>
                                 <input v-model="weight" class="form-control" type="number" min="1" required>
                             </div>
                         </div>

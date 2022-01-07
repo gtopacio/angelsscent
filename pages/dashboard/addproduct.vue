@@ -27,7 +27,7 @@
                                         <label for="length" class="form-label">Product Description</label>
                                         <textarea v-model="description" id="productDesc" class="form-control" rows="3" required></textarea>
                                     </div>
-                                    
+
                                 </div>
                     <br><br>
                     <hr class="my-4">
@@ -41,7 +41,7 @@
                                         <label for="length" class="form-label">Length</label>
                                         <input v-model="length" class="form-control" type="number" id="length" min="1" required>
                                     </div>
-                                    
+
                                     <div class="col-sm-6 my-3">
                                         <label for="width" class="form-label">Width</label>
                                         <input v-model="width" class="form-control" type="number" id="width" min="1" required>
@@ -54,9 +54,9 @@
                                         <label for="height" class="form-label">Height</label>
                                         <input v-model="height" class="form-control" type="number" id="height" min="1" required>
                                     </div>
-                                    
+
                                     <div class="col-sm-6 my-3">
-                                        <label for="weight" class="form-label">Weight (in ML)</label>
+                                        <label for="weight" class="form-label">Weight (in g)</label>
                                         <input v-model="weight" class="form-control" type="number" id="weight" min="1" required>
                                     </div>
                                 </div>
@@ -67,14 +67,14 @@
                     <div class="small text-uppercase py-2">
                         <legend class="my-3">Listing Requirements</legend>
                     </div>
-                    
+
 
                             <div class="row px-2">
                                     <div class="col-sm-6 my-3">
                                         <label for="price" class="form-label">Price</label>
                                         <input v-model="price" class="form-control" type="number" id="price" min="1" required>
                                     </div>
-                                    
+
                                     <div class="col-sm-6 my-3">
                                         <label for="quantity" class="form-label">Quantity</label>
                                         <input v-model="qty" class="form-control" type="number" id="quantity" min="1" required>
@@ -86,7 +86,7 @@
                                         <label for="formFile" class="form-label">Product Photo</label>
                                         <input class="form-control form-control-sm" type="file" @change="uploadImage" id="formFile" accept="image/png, image/gif, image/jpeg" required>
                                     </div>
-                                    
+
                                     <div class="col-sm-6 my-3">
                                         <label for="tagoption" class="form-label">Tag</label>
                                         <select id="tagoption" class="form-select ">
@@ -148,7 +148,7 @@ export default {
 
             try {
                 this.$fire.firestore.collection("products").add({
-                    name: this.name, 
+                    name: this.name,
                     description: this.description,
                     weight: parseInt(this.weight),
                     length: parseInt(this.length),

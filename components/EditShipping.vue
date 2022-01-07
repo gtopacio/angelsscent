@@ -26,6 +26,18 @@
                             </div>
 
                             <div class="row-md-12 my-4">
+                                <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
+                                <select class="form-control form-format mb-2" v-model="region" required>
+                                    <option value="NCR">NCR</option>
+                                    <option value="N. LUZON">N. LUZON</option>
+                                    <option value="S. LUZON">S. LUZON</option>
+                                    <option value="VISAYAS">VISAYAS</option>
+                                    <option value="MINDANAO">MINDANAO</option>
+                                    <option value="ISLANDER">ISLANDER</option>
+                                </select>
+                            </div>
+
+                            <div class="row-md-12 my-4">
                                  <label class="medium text-uppercase" for="zipcode">Zipcode</label>
                                 <input v-model="zipcode" maxlength = "46" type="number" min="0" class="form-control form-format" id="zipcode" placeholder="Zipcode" required>
                             </div>
@@ -63,6 +75,7 @@ export default {
         streetAdd: String,
         city: String,
         province: String,
+        region: String,
         zipcode: String 
     },
     methods:{
@@ -73,6 +86,7 @@ export default {
                     streetAdd: this.streetAdd.trim(),
                     city: this.city.trim(),
                     province: this.province.trim(),
+                    region: this.region.trim(),
                     zipcode: this.zipcode.trim() 
                 })
                 this.$router.app.refresh()

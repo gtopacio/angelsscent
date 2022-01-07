@@ -48,6 +48,16 @@
                                         <label class="text-size medium text-uppercase mt-2" for="province">Province</label>
                                         <input class="form-control form-format mb-2" v-model="province" type="text" required>
                                         
+                                        <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
+                                        <select class="form-control form-format mb-2" v-model="region" required>
+                                            <option value="NCR">NCR</option>
+                                            <option value="N. LUZON">N. LUZON</option>
+                                            <option value="S. LUZON">S. LUZON</option>
+                                            <option value="VISAYAS">VISAYAS</option>
+                                            <option value="MINDANAO">MINDANAO</option>
+                                            <option value="ISLANDER">ISLANDER</option>
+                                        </select>
+
                                         <label class="text-size medium text-uppercase mt-2" for="zipcode">Zipcode</label>
                                         <input class="form-control form-format mb-2" v-model="zipcode" type="number" min="0" required>
                                     </div>
@@ -84,14 +94,15 @@ export default {
             streetAdd: '',
             city: '',
             province: '',
+            region: '',
             zipcode: ''
         }
     },
     methods: {
-       async createUserDocument(uid, email, fName, lName, contactNo, streetAdd, city, province, zipcode) {
+       async createUserDocument(uid, email, fName, lName, contactNo, streetAdd, city, province, region, zipcode) {
             try {
                 await this.$fire.firestore.collection("users").doc(uid).set({
-                email, fName, lName, contactNo, streetAdd, city, province, zipcode
+                email, fName, lName, contactNo, streetAdd, city, province, region, zipcode
                 })
             } catch (e) {
                 alert(e)
@@ -106,7 +117,7 @@ export default {
             try {
                 const result = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password)
 
-                await this.createUserDocument(result.user.uid, result.user.email, this.fName, this.lName, this.contactNo, this.streetAdd, this.city, this.province, this.zipcode)
+                await this.createUserDocument(result.user.uid, result.user.email, this.fName, this.lName, this.contactNo, this.streetAdd, this.city, this.province, this.region, this.zipcode)
                 $("#signup").hide()
                 $('.modal-backdrop').remove();
                 this.$router.push('/account/info')

@@ -139,12 +139,10 @@ export default {
         },
         async submit(event){
             event.preventDefault()
-            var t = document.getElementById("tagoption");
-            var tagNum = t.options[t.selectedIndex].value;
-            if(tagNum == 1)
-                this.tag = 'men'
-            else
-                this.tag = 'women'
+            this.$emit('submit')
+            let t = document.getElementById("tagoption");
+            let tagNum = t.options[t.selectedIndex].value;
+            this.tag = tagNum == 1 ? 'men' : 'women';
 
             try {
                 this.$fire.firestore.collection("products").add({
@@ -167,7 +165,7 @@ export default {
         },
         uploadImage(e){
             let file = e.target.files[0]
-            var storageRef = this.$fire.storage.ref(file.name)
+            let storageRef = this.$fire.storage.ref(file.name)
             let uploadTask = storageRef.put(file)
 
             uploadTask.on('state changed', (snapshot) => {

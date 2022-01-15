@@ -35,12 +35,9 @@ export default {
     methods:{
         deleteProduct(id){
             this.$fire.firestore.collection("products").doc(id).delete().then(() => {
-                this.$router.app.refresh()
-                console.log("Document successfully deleted!");
+                this.$router.app.refresh();
                 $('.modal-backdrop').remove();
-            }).catch((error) => {
-                console.error("Error removing document: ", error);
-            });
+            })
         }
     }
 }

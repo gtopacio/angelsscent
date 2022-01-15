@@ -35,9 +35,9 @@
                                             <div class="row">
                                                 <div class="col d-flex flex-row justify-content-center mt-2">
                                                     <div class="def-number-input number-input safari_only">
-                                                        <button v-on:click='subtractItem(item.id)' class="minus"></button>
+                                                        <button :id='"minus"+item.id' v-on:click='subtractItem(item.id)' class="minus"></button>
                                                         <input :id='item.id+" qty"' class="quantity" name="quantity" :value="item.qty" min="0" type="number" disabled>
-                                                        <button v-on:click='addItem(item.id)' class="plus"></button>
+                                                        <button :id='"plus"+item.id' v-on:click='addItem(item.id)' class="plus"></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div v-if="items.length > 0" class=" w-100 d-flex justify-content-center">
-                        <button class="shadow text-uppercase btn btn-light checkout regular mt-4" @click="checkQty()">Proceed to Checkout</button>
+                        <button id="checkQtyBtn" class="shadow text-uppercase btn btn-light checkout regular mt-4" @click="checkQty()">Proceed to Checkout</button>
                     </div>
                 </div>
             </div>
@@ -123,35 +123,35 @@ export default {
                 this.$store.commit('cart/decreaseQty', id)
             }
         },
-        onDelete(id){
-            let item = this.items.find(obj => obj.id === id)
-            this.$store.commit('cart/remove', {
-                id: item.id,
-                uid: this.$fire.auth.currentUser.uid
-            })
-            console.log(this.$fire.auth.currentUser.uid)
-        },
-        updateTotal(){
-            var sum = 0
-            for(var i = 0; i < this.items.length; i++){
-                sum += this.items[i].subtotal
-            }
-            this.total = sum
-        },
-        updateTotalQty(){
-            var sum = 0
-            for(var i = 0; i < this.items.length; i++){
-                sum += this.items[i].qty
-            }
-            this.totalQty = sum
-        },
-        updateTotalWeight(){
-            var sum = 0
-            for(var i = 0; i < this.items.length; i++){
-                sum += (this.items[i].weight * this.items[i].qty)
-            }
-            this.totalWeight = sum
-        },
+        // onDelete(id){
+        //     let item = this.items.find(obj => obj.id === id)
+        //     this.$store.commit('cart/remove', {
+        //         id: item.id,
+        //         uid: this.$fire.auth.currentUser.uid
+        //     })
+        //     console.log(this.$fire.auth.currentUser.uid)
+        // },
+        // updateTotal(){
+        //     var sum = 0
+        //     for(var i = 0; i < this.items.length; i++){
+        //         sum += this.items[i].subtotal
+        //     }
+        //     this.total = sum
+        // },
+        // updateTotalQty(){
+        //     var sum = 0
+        //     for(var i = 0; i < this.items.length; i++){
+        //         sum += this.items[i].qty
+        //     }
+        //     this.totalQty = sum
+        // },
+        // updateTotalWeight(){
+        //     var sum = 0
+        //     for(var i = 0; i < this.items.length; i++){
+        //         sum += (this.items[i].weight * this.items[i].qty)
+        //     }
+        //     this.totalWeight = sum
+        // },
         checkQty(){
             for(var i = 0; i < this.items.length; i++){
                 let docRef = this.$fire.firestore.collection('products').doc(this.items[i].productid)

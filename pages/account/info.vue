@@ -107,12 +107,21 @@
 
 
 <script>
+import { infoAsyncData } from '../../util/asyncData/account/info';
 export default {
+    data(){
+        return {
+            id: 'id',
+            lName: 'lName',
+            fName: 'fName',
+            email: 'email',
+            contactNo: "123123",
+            region: 'NCR',
+            zipcode: '123'
+        }
+    },
     async asyncData({ $fire, store }){
-        let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
-        let data = await docRef.get().then(doc => doc.data())
-        data.id = store.state.user.uid
-        return{ data }
+        return await infoAsyncData($fire, store);
     }
 }
 </script>

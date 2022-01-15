@@ -56,35 +56,33 @@ export default {
             // console.log(docRef)
         },
         async submit(event) {
-             event.preventDefault()
+             event.preventDefault();
+             this.$emit('submit');
 
             // this.$store.commit('SET_NEWUSER', false)
             // this.$store.commit('SET_CONCESSIONAIRE', false)
 
             try {
-                const result = await this.$fire.auth.signInWithEmailAndPassword(this.email, this.password)
-                    console.log(result.user)
-                    let docRef = this.$fire.firestore.collection('users').doc(result.user.uid)
+                const result = await this.$fire.auth.signInWithEmailAndPassword(this.email, this.password);
+                let docRef = this.$fire.firestore.collection('users').doc(result.user.uid);
+                docRef.get().then((doc) => {
+                    if (doc.exists) {
+                        if(doc.data().role == "admin")
+                            this.$store.commit('SET_ADMIN', true)
+                            this.$router.push("/dashboard/sales")
+                        // this.$store.commit("SET_USER", result.user.uid, result.user.email)
+                    } else {
+                        console.log("No such document!");
+                    }
+                }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
 
-                    docRef.get().then((doc) => {
-                        if (doc.exists) {
-                            console.log("Document data:", doc.data());
-                            if(doc.data().role == "admin")
-                                this.$store.commit('SET_ADMIN', true)
-                                this.$router.push("/dashboard/sales")
-                            // this.$store.commit("SET_USER", result.user.uid, result.user.email)
-                        } else {
-                            console.log("No such document!");
-                        }
-                    }).catch((error) => {
-                        console.log("Error getting document:", error);
-                    });
-
-                    $("#login").hide()
-                    $('.modal-backdrop').remove();
-                    $('body').css({overflow: 'visible'});
+                $("#login").hide()
+                $('.modal-backdrop').remove();
+                $('body').css({overflow: 'visible'});
             } catch (e) {
-                alert(e)
+                console.error(e);
             }
         }
     }

@@ -69,7 +69,7 @@ export default {
     },
         async submit(event) {
             event.preventDefault()
-
+            this.$emit('submit')
             this.$store.commit('SET_NEWUSER', true)
             this.$store.commit('SET_ADMIN', true)
 

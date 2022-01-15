@@ -25,7 +25,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr :key="order.id" v-for="order in fulfilled" @click="goToDetails(order.id)">
+                                    <tr :key="order.id" :id='"goTo"+order.id' v-for="order in fulfilled" @click="goToDetails(order.id)">
                                         <td>{{ order.id }}</td>
                                         <td class="text-uppercase">{{ order.dateOrdered.toDate() }}</td>
                                         <td class="text-uppercase">{{ order.paymentStatus }}</td>
@@ -44,22 +44,10 @@
 </template>
 
 <script>
+import { fulfilledOrdersAsyncData } from '../../util/asyncData/dashboard/fulfilledorders'
 export default {
-
     async asyncData({$fire}) {
-         let collection = $fire.firestore.collection('orders').orderBy("dateOrdered", "desc")
-         let documents = await collection.get()
-
-         let orders = []
-         await Promise.all(documents.docs.map(document => { //remove map for single document
-            orders.push({id: document.id, ...document.data()})
-        }))
-
-        console.log(orders)
-
-        let fulfilled = orders.filter(document => document.orderStatus == "Fulfilled")
-
-        return{fulfilled}
+         return await fulfilledOrdersAsyncData($fire);
     },
     methods: {
         goToDetails(orderId){

@@ -80,24 +80,18 @@ export default {
         contactNo: String
     },
     methods:{
-        async submit(event){
-            event.preventDefault()
+        submit(event){
+            event.preventDefault();
+            this.$emit('submit');
             try {
                 this.$fire.firestore.collection("users").doc(this.id).update({
                     fName: this.fName.trim(),
-                    lName: this.lName.trim(), 
-                    // email: this.email.trim(),
+                    lName: this.lName.trim(),
                     contactNo: this.contactNo.trim() 
-                })
-
-                // this.$fire.auth.currentUser.updateEmail(this.email.trim())
-                // .then(() => {
-               
-                // });
-                this.$router.app.refresh()
-                $('#editProfile').hide()
+                });
+                this.$router.app.refresh();
+                $('#editProfile').hide();
                 $('.modal-backdrop').remove();
-                 
             } catch (e) {
                 alert(e)
             }

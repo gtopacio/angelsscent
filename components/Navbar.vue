@@ -31,7 +31,7 @@
                             <ul class="dropdown-menu dropdown-menu-lg-end text-capitalize" aria-labelledby="dashboardDropDown">
                                 <li> <NuxtLink to="/dashboard/sales"><a v-if="user"  class="dropdown-item" >View Dashboard</a></NuxtLink></li>
                                 <li> <NuxtLink to="/account/info"><a v-if="user"  class="dropdown-item" >View Account Info</a></NuxtLink></li>
-                                <li><a v-if="user" @click="signout" class="dropdown-item">Sign Out</a></li>
+                                <li><a id = "signoutLink" v-if="user" @click="signout" class="dropdown-item">Sign Out</a></li>
                             </ul>
                         </li>
 

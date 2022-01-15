@@ -79,8 +79,9 @@ export default {
         zipcode: String 
     },
     methods:{
-        async submit(event){
-            event.preventDefault()
+        submit(event){
+            event.preventDefault();
+            this.$emit('submit');
              try {
                 this.$fire.firestore.collection("users").doc(this.id).update({
                     streetAdd: this.streetAdd.trim(),
@@ -88,11 +89,10 @@ export default {
                     province: this.province.trim(),
                     region: this.region.trim(),
                     zipcode: this.zipcode.trim() 
-                })
-                this.$router.app.refresh()
-                $('#editShipping').hide()
+                });
+                this.$router.app.refresh();
+                $('#editShipping').hide();
                 $('.modal-backdrop').remove();
-
             } catch (e) {
                 alert(e)
             }

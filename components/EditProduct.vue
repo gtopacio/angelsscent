@@ -18,7 +18,7 @@
                                 <p>Product Photo</p>
                             </div>
                             <div class="col-sm-9">
-                                <input class="form-control form-control-sm" type="file" @change="uploadImage" accept="image/png, image/gif, image/jpeg">
+                                <input class="form-control form-control-sm" id="uploadField" type="file" @change="uploadImage" accept="image/png, image/gif, image/jpeg">
                             </div>
                         </div>
                         <div class="row mt-3 pt-2">
@@ -137,7 +137,7 @@
                         </div> -->
 
                         <div class="row mt-3 pt-5 w-100 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-lg btn-block w-50 save-btn btn-outline-light text-uppercase">Save Changes</button>
+                            <button type="submit" id="submit-button" class="btn btn-lg btn-block w-50 save-btn btn-outline-light text-uppercase">Save Changes</button>
                         </div>
                     </div>
                 </form>
@@ -168,75 +168,43 @@ export default {
         display: String,
         tag: String
     },
-    async asyncData(){
-        console.log(this.tag)
-    },
     methods:{
-        async submit(event){
-            event.preventDefault()
-            var displayStatus, tagStatus
-            var e = document.getElementById("displayoption"+this.id);
-            var displayNum = e.options[e.selectedIndex].value;
-            var t = document.getElementById("tagoption"+this.id);
-            var tagNum = t.options[t.selectedIndex].value;
+        submit(event){
+            event.preventDefault();
+            this.$emit('submit');
+            let e = document.getElementById(`displayoption${this.id}`);
+            let t = document.getElementById(`tagoption${this.id}`);
 
-            console.log(this.image)
-            if( displayNum == 1)
-                displayStatus = 'listed'
-            else
-                displayStatus = 'hidden'
-            if( tagNum == 1)
-                tagStatus = 'men'
-            else
-                tagStatus = 'women'
-            if(this.image == null){
-                try {
-                    this.$fire.firestore.collection("products").doc(this.id).update({
-                        name: this.name.trim(),
-                        description: this.description.trim(),
-                        length: parseInt(this.length),
-                        width: parseInt(this.width),
-                        height: parseInt(this.height),
-                        weight: parseInt(this.weight),
-                        price: parseInt(this.price),
-                        qty: parseInt(this.qty),
-                        tag: tagStatus,
-                        display: displayStatus
-                    })
-                    this.$router.app.refresh()
-                    $('#edit-modal'+this.id).hide()
-                    $('.modal-backdrop').remove();
+            let displayNum = !e ? "hidden" : e.options[e.selectedIndex].value;
+            let tagNum = !t ? 1 : t.options[t.selectedIndex].value;
 
-                } catch (e) {
-                    alert(e)
-                }
-            }
-            else{
-                try {
-                    this.$fire.firestore.collection("products").doc(this.id).update({
-                        name: this.name.trim(),
-                        description: this.description.trim(),
-                        length: parseInt(this.length),
-                        width: parseInt(this.width),
-                        height: parseInt(this.height),
-                        weight: parseInt(this.weight),
-                        price: parseInt(this.price),
-                        qty: parseInt(this.qty),
-                        tag: tagStatus,
-                        display: displayStatus,
-                        img: this.image
-                    })
+            let displayStatus = displayNum == 1 ? 'listed' : 'hidden';
+            let tagStatus = tagNum == 1 ? 'men' : 'women';
+            let newData = {
+                name: this.name.trim(),
+                description: this.description.trim(),
+                length: parseInt(this.length),
+                width: parseInt(this.width),
+                height: parseInt(this.height),
+                weight: parseInt(this.weight),
+                price: parseInt(this.price),
+                qty: parseInt(this.qty),
+                tag: tagStatus,
+                display: displayStatus
+            };
 
-                } catch (e) {
-                    alert(e)
-                }
+            if(this.image != null){
+                newData.img = this.image;
             }
 
-            this.$router.app.refresh()
+            this.$fire.firestore.collection("products").doc(this.id).update(newData);
+            this.$router.app.refresh();
+            $('#edit-modal'+this.id).hide();
+            $('.modal-backdrop').remove();
         },
         uploadImage(e){
             let file = e.target.files[0]
-            var storageRef = this.$fire.storage.ref(file.name)
+            let storageRef = this.$fire.storage.ref(file.name)
             let uploadTask = storageRef.put(file)
             uploadTask.on('state changed', (snapshot) => {
             }, (error) => {

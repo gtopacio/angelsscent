@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.2 (Python 3.9.5 on win32)" generated="20220124 23:15:35.981" rpa="false" schemaversion="2">
+<suite id="s1" name="Log-In-Suite" source="D:\La Salle\3rd Year Term 1\STSWENG\AngelsScent\angelsscent\test\automated tests\Log-In-Suite\log-in-suite.robot">
+<test id="s1-t1" name="Open Website">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>http://localhost:3000/</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20220124 23:15:36.180" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000/'.</msg>
+<status status="PASS" starttime="20220124 23:15:36.180" endtime="20220124 23:15:38.665"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20220124 23:15:38.666" endtime="20220124 23:15:38.813"/>
+</kw>
+<kw name="Page Should Contain Button" library="SeleniumLibrary">
+<arg>xpath://*[@id="__layout"]/div/div[1]/div/div[2]/div/div/div[3]/a/button</arg>
+<doc>Verifies button ``locator`` is found from current page.</doc>
+<msg timestamp="20220124 23:15:38.982" level="INFO">Current page contains button 'xpath://*[@id="__layout"]/div/div[1]/div/div[2]/div/div/div[3]/a/button'.</msg>
+<status status="PASS" starttime="20220124 23:15:38.815" endtime="20220124 23:15:38.982"/>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>xpath://*[@id="__layout"]/div/div[1]/div/div[2]/div/div/div[3]/a/button</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20220124 23:15:38.983" level="INFO">Clicking button 'xpath://*[@id="__layout"]/div/div[1]/div/div[2]/div/div/div[3]/a/button'.</msg>
+<status status="PASS" starttime="20220124 23:15:38.983" endtime="20220124 23:15:39.040"/>
+</kw>
+<kw name="Wait Until Element Contains" library="SeleniumLibrary">
+<arg>xpath://*[@id="navbarNav"]/ul/li[1]</arg>
+<arg>Home</arg>
+<doc>Waits until the element ``locator`` contains ``text``.</doc>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20220124 23:15:44.187" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20220124 23:15:44.084" endtime="20220124 23:15:44.188"/>
+</kw>
+<msg timestamp="20220124 23:15:44.189" level="FAIL">Element 'xpath://*[@id="navbarNav"]/ul/li[1]' did not get text 'Home' in 5 seconds.</msg>
+<status status="FAIL" starttime="20220124 23:15:39.041" endtime="20220124 23:15:44.189"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath://*[@id="accountDropdown"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220124 23:15:44.190" endtime="20220124 23:15:44.190"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath://*[@id="navbarNav"]/ul/li[5]/ul/li[1]/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20220124 23:15:44.190" endtime="20220124 23:15:44.190"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20220124 23:15:44.191" endtime="20220124 23:15:46.402"/>
+</kw>
+<status status="FAIL" starttime="20220124 23:15:36.180" endtime="20220124 23:15:46.402">Element 'xpath://*[@id="navbarNav"]/ul/li[1]' did not get text 'Home' in 5 seconds.</status>
+</test>
+<doc>Log-In Suite
+
+This test follows the example using keywords from
+the SeleniumLibrary</doc>
+<status status="FAIL" starttime="20220124 23:15:35.982" endtime="20220124 23:15:46.405"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Log-In-Suite">Log-In-Suite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

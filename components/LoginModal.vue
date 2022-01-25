@@ -14,13 +14,13 @@
                             <!-- Email -->
                             <div class="row-md-12 my-4">
                                 <label class="text-size medium text-uppercase" for="email">Email</label>
-                                <input v-model="email" class="form-control form-format" type="email" id="email" required>
+                                <input v-model="email" class="form-control form-format" type="email" id="login-email" required>
                             </div>
 
                             <!-- Password -->
                             <div class="row-md-12 my-4">
                                 <label class="text-size medium text-uppercase" for="password">Password</label>
-                                <input v-model="password" class="form-control form-format" type="password" id="password" required>
+                                <input v-model="password" class="form-control form-format" type="password" id="login-password" required>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                     <!-- Button -->
                     <div class="container-fluid d-flex justify-content-center mt-4 mb-2">
                         <div class="row btn-container">
-                            <button type="submit" class="btn btn-secondary btn-format text-uppercase">Log In</button>
+                            <button type="submit" class="btn btn-secondary btn-format text-uppercase" id="submit-login">Log In</button>
                         </div>
                     </div>
                 </form>

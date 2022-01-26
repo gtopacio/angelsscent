@@ -22,10 +22,10 @@
             <input v-model.lazy="confirm" type="password" placeholder="Confirm Password" class="form-control" required>
         </div>
 
-        <input 
-            type="submit" 
-            value="Register" 
-            class="btn btn-primary w-50 align-self-center" 
+        <input
+            type="submit"
+            value="Register"
+            class="btn btn-primary w-50 align-self-center"
             :disabled="emailError || confirmError"
             required
         >
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { registerCreateUserDocument } from '../../util/asyncData/admin/register.js';
 export default {
     layout: "empty",
     data() {
@@ -57,15 +58,7 @@ export default {
     },
     methods: {
         async createUserDocument(uid, name, email) {
-            let path = name.trim()
-            path = path.replace(/\s+/g, '-').toLowerCase()
-
-            try {
-                await this.$fire.firestore.collection('users').doc(uid).set({
-                name,email, role: 'admin' })
-            } catch (e) {
-                alert(e)
-            }
+            return await registerCreateUserDocument(uid, name, email);
     },
         async submit(event) {
             event.preventDefault()
@@ -79,7 +72,7 @@ export default {
                 await result.user.updateProfile({
                 displayName: this.name
                 })
-                
+
                 await this.createUserDocument(result.user.uid, result.user.displayName, result.user.email)
                 this.$router.push('/dashboard/orders')
 
@@ -88,7 +81,7 @@ export default {
             }
         }
     }
-    
+
 }
 </script>
 

@@ -47,7 +47,7 @@
                                         <input v-model="width" class="form-control" type="number" id="width" min="1" required>
                                     </div>
                                 </div>
-                                    
+
 
                                 <div class="row px-2">
                                     <div class="col-sm-6 my-3">
@@ -131,12 +131,12 @@ export default {
         }
     },
     methods: {
-
+      /*
         data(){
             return{
                 image: null
             }
-        },
+        },*/
         async submit(event){
             event.preventDefault()
             this.$emit('submit')

@@ -76,7 +76,7 @@ export default {
         city: String,
         province: String,
         region: String,
-        zipcode: String 
+        zipcode: String
     },
     methods:{
         submit(event){
@@ -88,7 +88,7 @@ export default {
                     city: this.city.trim(),
                     province: this.province.trim(),
                     region: this.region.trim(),
-                    zipcode: this.zipcode.trim() 
+                    zipcode: this.zipcode.trim()
                 });
                 this.$router.app.refresh();
                 $('#editShipping').hide();

@@ -32,7 +32,8 @@ describe('Checkout', () => {
     });
 
     const data = {
-        boxes: []
+        boxes: [],
+        totalWeight:0
     }
 
     const $fireModule = {
@@ -62,4 +63,22 @@ describe('Checkout', () => {
         wrapper.vm.$forceUpdate();
         expect(orderSpy).toHaveBeenCalled();
     });
+
+    test("Computed Qty", async() => {
+        const wrapper = shallowMount(checkout, options);
+        expect(wrapper.vm.shippingPrice).toBe(100);
+    });
+
+    window.alert = () => {};
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    test("submit Error", async() => {
+        options.mocks.$fire = null;
+        const wrapper = shallowMount(checkout, options);
+        const orderSpy = jest.spyOn(wrapper.vm, 'createOrder');
+        wrapper.find('button').trigger('click');
+        wrapper.vm.$forceUpdate();
+        expect(orderSpy).toHaveBeenCalled();
+    });
+
 });

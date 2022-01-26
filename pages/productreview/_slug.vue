@@ -53,7 +53,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
-                        <button type="submit" id="submit" class="shadow-sm text-uppercase btn btn-light submit-btn regular mt-2 px-4 py-2 mx-auto">Submit Review</button>
+                        <button type="submit" id="submitButton" class="shadow-sm text-uppercase btn btn-light submit-btn regular mt-2 px-4 py-2 mx-auto">Submit Review</button>
                     </div>
                 </div>
             </form>
@@ -62,31 +62,34 @@
 </template>
 
 <script>
+import { productreview_slugAsyncData } from '../../util/asyncData/productreview/_slug.js';
 export default {
     data(){
-        // return{
-        //     review: ''
-        // }
+        return{
+          items:[]
+        }
     },
     async asyncData({$fire, params}) {
-        let slug = params.slug;
-        let docRef = $fire.firestore.collection('orders').doc(slug)
-        let data = await docRef.get().then(doc => doc.data())
-        return{data, slug}
+        return await productreview_slugAsyncData($fire, params);
     },
     methods: {
         async submit(event){
-            event.preventDefault()
+            event.preventDefault();
+            this.$emit('submit');
             for(var i = 0; i < this.data.items.length; i++){
 
-                let text = document.getElementById('review'+this.data.items[i].id).value
-                var e = document.getElementById('rating'+this.data.items[i].id);
-                var num = e.options[e.selectedIndex].value;
+                let text = document.getElementById('review'+this.data.items[i].id) ? document.getElementById('review'+this.data.items[i].id).value : 'review'
+
+                var e, num = 5;
+                if (document.getElementById('rating'+this.data.items[i].id)) {
+                  e = document.getElementById('rating'+this.data.items[i].id);
+                  num = e.options[e.selectedIndex].value;
+                }
 
                 this.$fire.firestore.collection("reviews").add({
                     name: this.data.name,
                     productId: this.data.items[i].productid,
-                    productName: this.data.items[i].name, 
+                    productName: this.data.items[i].name,
                     review: text,
                     rating: num
                 })
@@ -94,7 +97,7 @@ export default {
             this.$router.push('/account/orderlist')
         }
     }
-    
+
 }
 </script>
 

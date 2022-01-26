@@ -54,7 +54,7 @@
                                                         <button class="btn mb-2 text-uppercase btn save-btn btn-outline-light" data-bs-toggle="modal" :data-bs-target='"#removeProduct"+product.id'>Delete</button>
                                                     </div>
 
-                                                    <EditProduct 
+                                                    <EditProduct
                                                         :id = "product.id"
                                                         :name = "product.name"
                                                         :description = "product.description"
@@ -69,12 +69,12 @@
                                                     />
 
                                                     <DeleteProduct
-                                                        :id = "product.id"    
+                                                        :id = "product.id"
                                                     />
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table> 
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -86,19 +86,13 @@
 </template>
 
 <script>
+import { productinventoryAsyncData } from '../../util/asyncData/dashboard/productinventory.js';
 export default {
     async asyncData({$fire}) {
-        let collection = $fire.firestore.collection('products').orderBy('name') //.doc(document.id)
-        let documents = await collection.get()
-        
-        let products = []
-        await Promise.all(documents.docs.map(document => { //remove map for single document
-            products.push({id: document.id, ...document.data()})
-        }))
-
-        return{products}
-    }, 
+        return await productinventoryAsyncData($fire);
+    },
     methods:{
+      /*
         deleteProduct(id){
             this.$fire.firestore.collection("products").doc(id).delete().then(() => {
                 this.$router.app.refresh()
@@ -107,6 +101,7 @@ export default {
                 console.error("Error removing document: ", error);
             });
         }
+        */
     }
 }
 </script>

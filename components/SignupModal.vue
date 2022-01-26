@@ -47,7 +47,7 @@
 
                                         <label class="text-size medium text-uppercase mt-2" for="province">Province</label>
                                         <input class="form-control form-format mb-2" v-model="province" type="text" required>
-                                        
+
                                         <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
                                         <select class="form-control form-format mb-2" v-model="region" required>
                                             <option value="NCR">NCR</option>

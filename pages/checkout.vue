@@ -71,7 +71,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="regular">
-                                  
+
                                   <tr :key="box.id" v-for="box in data.boxes">
                                       <td>
                                           <div>{{ box.name }}</div>
@@ -80,7 +80,7 @@
                                       <td>{{ box.qty }}</td>
                                       <td>₱{{ box.price }}.00</td>
                                   </tr>
-                                 
+
                                   <tr>
                                       <td>Shipping Fee ({{data.region}})</td>
                                       <td></td>
@@ -197,7 +197,7 @@
 <script>
 import $ from 'jquery'
 import getBoxes from '../util/getBoxes'
-
+import { checkoutAsyncData } from '../util/asyncData/checkout.js'
 export default {
 
     computed: {
@@ -222,16 +222,7 @@ export default {
     },
 
     async asyncData({ $fire, store }){
-        let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
-        let data = await docRef.get().then(doc => doc.data())
-        let boxes = getBoxes({totalWeight: store.state.cart.totalWeight, region: data.region})
-        data.boxes = boxes
-        data.shippingPrice = 0
-        for(let box of boxes){
-            data.shippingPrice += box.price + box.boxFee
-        }
-        data.grandTotal = data.shippingPrice + store.state.cart.total
-        return{ data }
+        return await checkoutAsyncData($fire, store)
     },
     methods: {
         createOrder(){

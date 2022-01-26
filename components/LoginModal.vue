@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
-                
+
                 <div class="container-fluid border-bottom d-flex justify-content-center medium">
                     <p class="text-size text-uppercase">Log In</p>
                 </div>
@@ -72,10 +72,10 @@ export default {
                             this.$router.push("/dashboard/sales")
                         // this.$store.commit("SET_USER", result.user.uid, result.user.email)
                     } else {
-                        console.log("No such document!");
+                        //console.log("No such document!");
                     }
                 }).catch((error) => {
-                    console.log("Error getting document:", error);
+                    //console.log("Error getting document:", error);
                 });
 
                 $("#login").hide()

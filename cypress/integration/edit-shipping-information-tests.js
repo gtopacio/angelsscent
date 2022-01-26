@@ -1,6 +1,6 @@
 describe('Edit Shipping Information Suits', () => {
     it('test for valid change of province', () => {
-      cy.visit('https://angelsscent-dev.firebaseapp.com/')
+      cy.visit(Cypress.env('test_host_url'))
 
       cy.contains('SHOP NOW')
       cy.contains('SHOP NOW').trigger('mouseover').click()
@@ -47,7 +47,7 @@ describe('Edit Shipping Information Suits', () => {
     })
 
     it('test for discard changes/changes not saved', () => {
-        cy.visit('https://angelsscent-dev.firebaseapp.com/')
+        cy.visit(Cypress.env('test_host_url'))
   
         cy.contains('SHOP NOW')
         cy.contains('SHOP NOW').trigger('mouseover').click()
@@ -87,7 +87,7 @@ describe('Edit Shipping Information Suits', () => {
       })
 
       it('test for saving blank information', () => {
-        cy.visit('https://angelsscent-dev.firebaseapp.com/')
+        cy.visit(Cypress.env('test_host_url'))
   
         cy.contains('SHOP NOW')
         cy.contains('SHOP NOW').trigger('mouseover').click()

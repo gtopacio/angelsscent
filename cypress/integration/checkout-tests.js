@@ -1,6 +1,6 @@
 describe('Checkout Test Suits', () => {
     it('test case 1 -> luzon, less than 1 kg, P100 shipping fee', () => {
-      cy.visit('https://angelsscent-dev.firebaseapp.com/')
+      cy.visit(Cypress.env('test_host_url'))
 
       cy.contains('SHOP NOW')
       cy.contains('SHOP NOW').trigger('mouseover').click()
@@ -52,7 +52,7 @@ describe('Checkout Test Suits', () => {
     })
 
     it('test case 2 -> luzon, more than 1 kg, P200 shipping fee', () => {
-      cy.visit('https://angelsscent-dev.firebaseapp.com/')
+      cy.visit(Cypress.env('test_host_url'))
 
       cy.contains('SHOP NOW')
       cy.contains('SHOP NOW').trigger('mouseover').click()

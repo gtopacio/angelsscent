@@ -1,1 +1,5 @@
-{}
+{
+    "env":{
+        "test_host_url": "http://localhost:3000/"
+    }
+}

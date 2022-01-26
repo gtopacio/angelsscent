@@ -40,8 +40,8 @@
                                 Account
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end text-capitalize" aria-labelledby="accountDropdown">
-                                <li><a v-if="!user" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#login" id="login-btn">Log In</a></li>
-                                <li><a v-if="!user" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#signup" id="signup-btn">Sign Up</a></li>
+                                <li><a v-if="!user" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#login">Log In</a></li>
+                                <li><a v-if="!user" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a></li>
                                 <li> <NuxtLink to="/account/info"><a v-if="user"  class="dropdown-item" >View Account Info</a></NuxtLink></li>
                                 <li><a v-if="user" @click="signout" class="dropdown-item">Sign Out</a></li>
                             </ul>

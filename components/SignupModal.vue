@@ -18,38 +18,38 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="col-md-6">
                                                 <label class="text-size medium text-uppercase me-2 mt-2" for="fName">First Name</label>
-                                                <input class="form-control form-format me-2 mb-2" v-model="fName" type="text" id="signup-firstname" required>
+                                                <input class="form-control form-format me-2 mb-2" v-model="fName" type="text" required>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="text-size medium text-uppercase ms-2 mt-2" for="lName">Last Name</label>
-                                                <input class="form-control form-format ms-2 mb-2" v-model="lName" type="text" id="signup-lastname" required>
+                                                <input class="form-control form-format ms-2 mb-2" v-model="lName" type="text" required>
                                             </div>
                                         </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="contactNo">Contact Number</label>
-                                        <input class="form-control form-format mb-2" v-model="contactNo" type="number" min="0" id="signup-contactNo" required>
+                                        <input class="form-control form-format mb-2" v-model="contactNo" type="number" min="0" required>
 
                                         <label class="text-size medium text-uppercase mt-2" for="email">Email</label>
-                                        <input class="form-control form-format mb-2" v-model="email" type="text" id="signup-email" required>
+                                        <input class="form-control form-format mb-2" v-model="email" type="text" requried>
 
                                         <label class="text-size medium text-uppercase mt-2" for="password">Password</label>
-                                        <input class="form-control form-format mb-2" v-model="password" type="password" id="signup-password" required>
+                                        <input class="form-control form-format mb-2" v-model="password" type="password" required>
                                     </div>
 
                                     <!-- Second Half -->
                                     <div class="col">
                                         <label class="text-size medium text-uppercase mt-2" for="streetAdd">Street Address</label>
-                                        <input class="form-control form-format mb-2" v-model="streetAdd" type="text" id="signup-street" required>
+                                        <input class="form-control form-format mb-2" v-model="streetAdd" type="text" required>
 
                                         <label class="text-size medium text-uppercase mt-2" for="city">City</label>
-                                        <input class="form-control form-format mb-2" v-model="city" type="text" id="signup-city" required>
+                                        <input class="form-control form-format mb-2" v-model="city" type="text" required>
 
                                         <label class="text-size medium text-uppercase mt-2" for="province">Province</label>
-                                        <input class="form-control form-format mb-2" v-model="province" type="text" id="signup-province" required>
+                                        <input class="form-control form-format mb-2" v-model="province" type="text" required>
 
                                         <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
-                                        <select class="form-control form-format mb-2" v-model="region" id="signup-region" required>
+                                        <select class="form-control form-format mb-2" v-model="region" required>
                                             <option value="NCR">NCR</option>
                                             <option value="N. LUZON">N. LUZON</option>
                                             <option value="S. LUZON">S. LUZON</option>
@@ -59,14 +59,14 @@
                                         </select>
 
                                         <label class="text-size medium text-uppercase mt-2" for="zipcode">Zipcode</label>
-                                        <input class="form-control form-format mb-2" v-model="zipcode" type="number" min="0" id="signup-zipcode" required>
+                                        <input class="form-control form-format mb-2" v-model="zipcode" type="number" min="0" required>
                                     </div>
                                 </div>
 
                                 <!-- Button -->
                                 <div class="container-fluid d-flex justify-content-center mt-4 mb-2">
                                     <div class="row btn-container">
-                                        <button type="submit" class="btn btn-secondary btn-format text-uppercase" id="submit-signup">Register</button>
+                                        <button type="submit" class="btn btn-secondary btn-format text-uppercase">Register</button>
                                     </div>
                                 </div>
                             </div>

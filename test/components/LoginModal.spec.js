@@ -13,7 +13,7 @@ describe('LoginModal', () => {
         city: "String",
         province: "String",
         region: "String",
-        zipcode: "String" 
+        zipcode: "String"
     };
 
     beforeEach(() => { jest.clearAllMocks(); });
@@ -35,5 +35,19 @@ describe('LoginModal', () => {
     wrapper.find('form').trigger('submit');
     expect(wrapper.emitted()).toHaveProperty('submit');
     expect(auth.signInWithEmailAndPassword).toHaveBeenCalled();
+  });
+
+  test("submit error", () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    auth.setData({ exists: true });
+    firestore.setData({
+        role: "admin",
+        exists: true
+    });
+    const $fire = { firestore };
+    const mocks = {$fire, $router, $store};
+    propsData = null;
+    const wrapper = shallowMount(LoginModal, {propsData, mocks});
+    wrapper.find('form').trigger('submit');
   });
 });

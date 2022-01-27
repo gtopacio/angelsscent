@@ -1,7 +1,7 @@
 <template>
-<div> 
+<div>
     <div class="account-header text-center text-uppercase py-2 regular">
-         Products   
+         Products
     </div>
     <div class="py-4">
         <div class="container">
@@ -17,8 +17,8 @@
                 <div class="tab-content d-flex flex-wrap" id="myTabContent">
                     <div class="tab-pane fade show active px-4 my-4 mx-auto" id="women" role="tabpanel" aria-labelledby="home-tab">
                         <div class="d-flex flex-wrap justify-content-center">
-                            <ProductCard 
-                                v-for="product in women" 
+                            <ProductCard
+                                v-for="product in women"
                                 :key="product.id"
                                 :name="product.name"
                                 :price="product.price"
@@ -26,12 +26,12 @@
                                 :path="`/product/${product.id}`"
                                 :img="product.img"/>
                         </div>
-                        
+
                     </div>
                     <div class="tab-pane fade px-4 my-4 mx-auto" id="men" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="d-flex flex-wrap justify-content-center">
-                           <ProductCard 
-                                v-for="product in men" 
+                           <ProductCard
+                                v-for="product in men"
                                 :key="product.id"
                                 :name="product.name"
                                 :price="product.price"
@@ -56,9 +56,8 @@ export default{
         }
     },
     async asyncData({$fire}) {
-        let res = await productAsyncData($fire);
-        return res;
-    } 
+        return await productAsyncData($fire);
+    }
 }
 
 </script>

@@ -11,7 +11,7 @@ describe('EditShipping', () => {
         city: "String",
         province: "String",
         region: "String",
-        zipcode: "String" 
+        zipcode: "String"
     };
 
     beforeEach(() => { jest.clearAllMocks(); });
@@ -24,6 +24,16 @@ describe('EditShipping', () => {
   test("calls submit when submit button was clicked", () => {
     const $fire = { firestore };
     const mocks = {$fire, $router};
+    const wrapper = shallowMount(EditShipping, {propsData, mocks});
+    wrapper.find('form').trigger('submit');
+    expect(wrapper.emitted()).toHaveProperty('submit');
+  });
+
+  test("submit error", () => {
+    window.alert = () => {};
+    const $fire = { firestore };
+    const mocks = {$fire, $router};
+    propsData = null
     const wrapper = shallowMount(EditShipping, {propsData, mocks});
     wrapper.find('form').trigger('submit');
     expect(wrapper.emitted()).toHaveProperty('submit');

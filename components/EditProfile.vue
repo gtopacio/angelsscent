@@ -73,10 +73,10 @@ import $ from 'jquery'
 
 export default {
     props:{
-        id: String, 
-        fName: String, 
-        lName: String, 
-        email: String, 
+        id: String,
+        fName: String,
+        lName: String,
+        email: String,
         contactNo: String
     },
     methods:{
@@ -87,7 +87,7 @@ export default {
                 this.$fire.firestore.collection("users").doc(this.id).update({
                     fName: this.fName.trim(),
                     lName: this.lName.trim(),
-                    contactNo: this.contactNo.trim() 
+                    contactNo: this.contactNo.trim()
                 });
                 this.$router.app.refresh();
                 $('#editProfile').hide();

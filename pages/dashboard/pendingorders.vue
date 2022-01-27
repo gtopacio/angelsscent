@@ -21,11 +21,11 @@
                                         <th scope="col">Payment Status</th>
                                         <th scope="col">Order Status</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">Customer Name</th> 
+                                        <th scope="col">Customer Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr :key="order.id" v-for="order in pending" @click="goToDetails(order.id)">
+                                    <tr :key="order.id" :id='"goTo"+order.id' v-for="order in pending" @click="goToDetails(order.id)">
                                         <td>{{ order.id }}</td>
                                         <td class="text-uppercase">{{ order.dateOrdered.toDate() }}</td>
                                         <td class="text-uppercase">{{ order.paymentStatus }}</td>
@@ -34,7 +34,7 @@
                                         <td class="text-uppercase">{{ order.name }}</td>
                                     </tr>
                                 </tbody>
-                            </table> 
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -44,21 +44,10 @@
 </template>
 
 <script>
+import { pendingordersAsyncData } from '../../util/asyncData/dashboard/pendingorders.js';
 export default {
     async asyncData({$fire}) {
-         let collection = $fire.firestore.collection('orders').orderBy("dateOrdered", "desc")
-         let documents = await collection.get()
-
-         let orders = []
-         await Promise.all(documents.docs.map(document => { //remove map for single document
-            orders.push({id: document.id, ...document.data()})
-        }))
-
-        console.log(orders)
-
-        let pending = orders.filter(document => document.orderStatus == "Pending" || document.orderStatus == "Shipping")
-
-        return{pending}
+         return await pendingordersAsyncData($fire);
     },
     methods: {
         goToDetails(orderId){

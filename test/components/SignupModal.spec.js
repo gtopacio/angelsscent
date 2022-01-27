@@ -21,4 +21,14 @@ describe('SignupModal', () => {
     expect(wrapper.emitted()).toHaveProperty('submit');
     expect(auth.createUserWithEmailAndPassword).toHaveBeenCalled();
   });
+
+  test("submit error", () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    window.alert = () => {};
+    const $fire = { firestore };
+    const mocks = {$fire, $router, $store};
+    const wrapper = shallowMount(SignupModal, {mocks});
+    wrapper.find('form').trigger('submit');
+    expect(wrapper.emitted()).toHaveProperty('submit');
+  });
 });

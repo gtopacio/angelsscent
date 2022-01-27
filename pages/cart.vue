@@ -83,7 +83,7 @@
 </template>
 
 <script>
-
+import { cartAsyncData } from '../util/asyncData/cart.js'
 export default {
     computed: {
         items() {
@@ -101,17 +101,7 @@ export default {
     },
     methods: {
         async asyncData( {$fire, store} ){
-            console.log(store.state.cart)
-            let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
-                                        .collection('cart')
-            let documents =  await docRef.get()
-
-            let items = []
-            await Promise.all(documents.docs.map(document => { //remove map for single document
-                items.push({id: document.id, ...document.data()})
-            }))
-            console.log(store.state)
-            return { items }
+          return await cartAsyncData($fire, store);
         },
         addItem(id){
            this.$store.commit('cart/increaseQty', id)

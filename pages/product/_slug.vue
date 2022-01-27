@@ -5,17 +5,17 @@
         </div>
         <div class="mt-4 ms-4">
             <NuxtLink class="text-uppercase return regular" to="/products">
-                Return To Product List 
+                Return To Product List
             </NuxtLink>
         </div>
 
         <div class="container-fluid mt-4">
             <div class="row d-flex justify-content-around my-2">
-                <div class="col"> 
+                <div class="col">
                     <img :src="data.img" class="mx-auto d-block product-img img-fluid">
                 </div>
 
-                <div class="col-md-6 mb-4"> 
+                <div class="col-md-6 mb-4">
                     <div class="container-fluid">
                         <div class="text-uppercase d-flex flex-column">
                             <div class="product-title regular">{{data.name}}</div>
@@ -57,7 +57,7 @@
                                     <i class="fas fa-star fa-xs mx-1"></i>
                                 </div>
                                 <div class="light mx-2"> {{ productReviews.length}} Ratings </div>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="shadow box w-100 p-4 my-2 light d-flex flex-column">
@@ -78,7 +78,7 @@
                             </div>
                             <div v-if="data.qty > 0" class="text-uppercase mt-1">
                                 Available Stock: {{ data.qty }}
-                                
+
                             </div>
                             <div v-if="data.qty <= 0" class="text-uppercase mt-1 medium">
                                 Out of Stock
@@ -90,7 +90,7 @@
                             <button type="button" @click="() => qty++" class="plus increase"></button>
                         </div>
                         <div v-if="data.qty > 0" class="text-center">
-                            <button type="button" @click="addToCart()" class="shadow btn btn-light add mt-2" data-bs-toggle="modal" data-bs-target="#addToCart">ADD TO CART</button>
+                            <button id="addButton" type="button" @click="addToCart()" class="shadow btn btn-light add mt-2" data-bs-toggle="modal" data-bs-target="#addToCart">ADD TO CART</button>
                         </div>
 
                         <div v-if="data.qty >= this.qty" class="modal fade" id="addToCart" tabindex="-1">
@@ -116,8 +116,8 @@
                                 </div>
                             </div>
                         </div>
-                        
-                    </div> 
+
+                    </div>
                 </div>
             </div>
 
@@ -132,47 +132,47 @@
                             <i class="far fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
-                        </div> 
+                        </div>
                         <div v-if="review.rating == 2" class="d-flex flex-row my-1 align-items-center">
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
-                        </div> 
+                        </div>
                         <div v-if="review.rating == 3" class="d-flex flex-row my-1 align-items-center">
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
-                        </div> 
+                        </div>
                         <div v-if="review.rating == 4" class="d-flex flex-row my-1 align-items-center">
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="far fa-star fa-xs mx-1"></i>
-                        </div> 
+                        </div>
                         <div v-if="review.rating == 5" class="d-flex flex-row my-1 align-items-center">
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
                             <i class="fas fa-star fa-xs mx-1"></i>
-                        </div> 
+                        </div>
                         <div class="box-text mt-3">{{ review.review }}</div>
                     </div>
                 </div>
-            </div>       
+            </div>
         </div>
     </div>
 </template>
-    
+
 <script>
 
 import $ from 'jquery'
-
+import { product_slugAsyncData } from '../../util/asyncData/product/_slug.js';
 export default {
     computed: {
         user() {
@@ -181,7 +181,8 @@ export default {
     },
     data(){
         return {
-            qty: 1
+            qty: 1,
+            productReviews:[]
         }
     },
     watch: {
@@ -192,28 +193,7 @@ export default {
         }
     },
     async asyncData({$fire, params}) {
-        let slug = params.slug;
-        let docRef = $fire.firestore.collection('products').doc(slug)
-        let data = await docRef.get().then(doc => doc.data())
-
-        let reviewRef = $fire.firestore.collection('reviews')
-        let reviewDocs = await reviewRef.get()
-
-        let reviews = []
-        await Promise.all(reviewDocs.docs.map(document => { //remove map for single document
-            reviews.push({id: document.id, ...document.data()})
-        }))
-
-        let productReviews = reviews.filter(document => document.productId == slug)
-
-        let sum = 0;
-        for(var i = 0; i < productReviews.length; i++){
-            sum += parseInt(productReviews[i].rating)
-        }
-        sum = Math.floor(sum /= productReviews.length)
-        console.log(sum)
-
-        return{data, slug, productReviews, sum}
+        return await product_slugAsyncData($fire, params);
     },
     methods: {
         async addToCart(){
@@ -231,27 +211,29 @@ export default {
                 }
 
                 if (this.$fire.auth.currentUser) {
-                    let docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.uid)
-                            .collection('cart').where('productid', '==', item.productid)    
+                    try {
+                      let docRef = this.$fire.firestore.collection('users').doc(this.$store.state.user.uid)
+                              .collection('cart').where('productid', '==', item.productid)
+                      let doc = await docRef.get()
+                      let cartItem = !doc.empty ? await doc.docs[0].ref.get().then(doc => doc.data()) : null
+                      if (cartItem) {
+                          doc.docs[0].ref.update({
+                              qty: cartItem.qty + item.qty,
+                              subtotal: (cartItem.qty + item.qty) * item.price
+                          })
 
-                    let doc = await docRef.get()
-                    let cartItem = !doc.empty ? await doc.docs[0].ref.get().then(doc => doc.data()) : null
-
-                    if (cartItem) {
-                        doc.docs[0].ref.update({
-                            qty: cartItem.qty + item.qty,
-                            subtotal: (cartItem.qty + item.qty) * item.price
-                        })
-                    
-                        this.$store.commit('cart/addItem', { ...item})
-                        console.log(this.$store.state.cart)
-                    } else{
-                            let ref = await this.$fire.firestore.collection('users').doc(this.$store.state.user.uid)
-                                .collection('cart').add({
-                                ...item
-                            })
-                            this.$store.commit('cart/addItem', { ...item})
-                        }
+                          this.$store.commit('cart/addItem', { ...item})
+                          console.log(this.$store.state.cart)
+                      } else{
+                              let ref = await this.$fire.firestore.collection('users').doc(this.$store.state.user.uid)
+                                  .collection('cart').add({
+                                  ...item
+                              })
+                              this.$store.commit('cart/addItem', { ...item})
+                          }
+                    } catch (e) {
+                      alert(e);
+                    }
                     }
                 }
         },
@@ -271,7 +253,7 @@ export default {
 
 .card:hover{
     transition: box-shadow .3s;
-    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 
 .product-img{
@@ -323,7 +305,7 @@ export default {
       text-decoration: none;
       color: inherit;
  }
- 
+
  .fa-star{
      color: #9F9A96;
  }

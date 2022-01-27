@@ -5,9 +5,9 @@
         </div>
         <div class="container-fluid my-4 px-4">
             <NuxtLink class="text-uppercase return regular" to="/account/orderlist">
-                Return To Order List 
+                Return To Order List
             </NuxtLink>
-        
+
             <div class="row">
                 <div class="col my-3">
                     <div class="order-box shadow container-fluid p-4">
@@ -59,8 +59,8 @@
                             </table>
                         </div>
                     </div>
-                    <div v-if="data.orderStatus == 'Pending'" class="mt-3 d-flex justify-content-center"> 
-                        <button type="button" class="shadow text-uppercase btn btn-light button regular" @click="cancelOrder(slug)">Cancel Order</button>
+                    <div v-if="data.orderStatus == 'Pending'" class="mt-3 d-flex justify-content-center">
+                        <button id="cancelButton" type="button" class="shadow text-uppercase btn btn-light button regular" @click="cancelOrder(slug)">Cancel Order</button>
                     </div>
                 </div>
 
@@ -81,10 +81,10 @@
                         </div>
                         <div v-if=" data.orderStatus == 'Fulfilled'" class="d-flex justify-content-start mt-2">
                             <NuxtLink class="text-uppercase text-right return regular" :to="'/productreview/'+slug">
-                                Review Products 
+                                Review Products
                             </NuxtLink>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,13 +92,10 @@
 </template>
 
 <script>
+import { orderdetail_slugAsyncData } from '../../util/asyncData/orderdetail/_slug.js';
 export default {
     async asyncData({$fire, params}) {
-        let slug = params.slug;
-        let docRef = $fire.firestore.collection('orders').doc(slug)
-        let data = await docRef.get().then(doc => doc.data())
-        console.log(data)
-        return{data, slug}
+        return await orderdetail_slugAsyncData($fire, params);
     },
     methods: {
         cancelOrder(id){
@@ -106,11 +103,11 @@ export default {
                  orderStatus: "Cancelled",
             })
             for(var i = 0; i < this.data.items.length; i++){
-               
+
                 this.$fire.firestore.collection("products").doc(this.data.items[i].productid).update({
                     qty: this.$fireModule.firestore.FieldValue.increment(this.data.items[i].qty)
                 })
-                
+
             }
             this.$router.app.refresh()
         }

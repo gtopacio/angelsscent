@@ -8,9 +8,9 @@
                     <p class="text-size text-uppercase">Sign Up</p>
                 </div>
 
-                <form ref="registerForm" action="" @submit="submit">
-                    <div class="container-fluid d-flex justify-content-center">
-                        <div class="signup-container my-1">
+                <form ref="registerForm" action="" @submit="submit" >
+                    <div class="container-fluid d-flex justify-content-center" id="form-container">
+                        <div class="signup-container my-1" >
                             <div class="input group">
                                 <div class="row">
                                     <!-- First Half -->
@@ -28,17 +28,19 @@
                                         </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="contactNo">Contact Number</label>
-                                        <input class="form-control form-format mb-2" v-model="contactNo" type="number" min="0" id="signup-contactNo" required>
+                                        <input class="form-control form-format mb-2" v-model="contactNo" type="tel" min="0" id="signup-contactNo" required>
 
                                         <label class="text-size medium text-uppercase mt-2" for="email">Email</label>
                                         <input class="form-control form-format mb-2" v-model="email" type="text" id="signup-email" required>
+                                        <div class="small red text-danger" id="invalid-email" > </div>
 
-                                        <label class="text-size medium text-uppercase mt-2" for="password">Password</label>
+                                        <label class="text-size medium text-uppercase mt-2" for="password" id="password-label">Password</label>
                                         <input class="form-control form-format mb-2" v-model="password" type="password" id="signup-password" required>
+                                        <div class="small red text-danger" id="password-error" > </div>
                                     </div>
 
                                     <!-- Second Half -->
-                                    <div class="col">
+                                    <div class="col" id="firstcol">
                                         <label class="text-size medium text-uppercase mt-2" for="streetAdd">Street Address</label>
                                         <input class="form-control form-format mb-2" v-model="streetAdd" type="text" id="signup-street" required>
 
@@ -47,7 +49,7 @@
 
                                         <label class="text-size medium text-uppercase mt-2" for="province">Province</label>
                                         <input class="form-control form-format mb-2" v-model="province" type="text" id="signup-province" required>
-                                        
+
                                         <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
                                         <select class="form-control form-format mb-2" v-model="region" id="signup-region" required>
                                             <option value="NCR">NCR</option>
@@ -79,8 +81,8 @@
 </div>
 </template>
 
-<script>
 
+<script>
 import $ from 'jquery'
 
 export default {
@@ -114,9 +116,26 @@ export default {
             this.$store.commit('SET_NEWUSER', true)
             // this.$store.commit('SET_CONCESSIONAIRE', false)
 
+            // Valid email validation
+            var validemail = $("#signup-email").attr('value')
+
+            if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(validemail))
+                $("#invalid-email").text("Email is invalid.");
+            else
+                $("#invalid-email").text(" ");
+                
+            // Password length validation
+            var pwlength = $("#signup-password").val.length;
+
+            if (pwlength < 6)
+                $("#password-error").text("Password must be at least 6 characters.");
+            else
+                $("#password-error").text("");
+
+
             try {
                 const result = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password)
-
+                
                 await this.createUserDocument(result.user.uid, result.user.email, this.fName, this.lName, this.contactNo, this.streetAdd, this.city, this.province, this.region, this.zipcode)
                 $("#signup").hide()
                 $('.modal-backdrop').remove();
@@ -131,6 +150,7 @@ export default {
 }
 
 </script>
+
 
 <style scoped>
 

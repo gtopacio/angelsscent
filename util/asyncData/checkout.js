@@ -1,3 +1,5 @@
+import getBoxes from '../getBoxes'
+
 async function checkoutAsyncData($fire, store) {
   let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
   let data = await docRef.get().then(doc => doc.data())

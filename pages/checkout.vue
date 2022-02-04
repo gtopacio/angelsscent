@@ -196,10 +196,8 @@
 
 <script>
 import $ from 'jquery'
-import getBoxes from '../util/getBoxes'
 import { checkoutAsyncData } from '../util/asyncData/checkout.js'
 export default {
-
     computed: {
         shippingPrice(){
             if(this.totalWeight < 1000)

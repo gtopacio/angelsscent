@@ -18,40 +18,46 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="col-md-6">
                                                 <label class="text-size medium text-uppercase me-2 mt-2" for="fName">First Name</label>
-                                                <input class="form-control form-format me-2 mb-2" v-model="fName" type="text" id="signup-firstname" required>
+                                                <input class="form-control form-format me-2 mb-2" v-model="fName" type="text" id="signup-firstname">
+                                                <div class="small red text-danger" id="firstname-error" > </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="text-size medium text-uppercase ms-2 mt-2" for="lName">Last Name</label>
-                                                <input class="form-control form-format ms-2 mb-2" v-model="lName" type="text" id="signup-lastname" required>
+                                                <input class="form-control form-format ms-2 mb-2" v-model="lName" type="text" id="signup-lastname">
+                                                <div class="small red text-danger" id="lastname-error" > </div>
                                             </div>
                                         </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="contactNo">Contact Number</label>
-                                        <input class="form-control form-format mb-2" v-model="contactNo" type="tel" min="0" id="signup-contactNo" required>
+                                        <input class="form-control form-format mb-2" v-model="contactNo" type="tel" min="0" id="signup-contactNo" >
+                                        <div class="small red text-danger" id="contactno-error" > </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="email">Email</label>
-                                        <input class="form-control form-format mb-2" v-model="email" type="text" id="signup-email" required>
+                                        <input class="form-control form-format mb-2" v-model="email" type="text" id="signup-email" >
                                         <div class="small red text-danger" id="invalid-email" > </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="password" id="password-label">Password</label>
-                                        <input class="form-control form-format mb-2" v-model="password" type="password" id="signup-password" required>
+                                        <input class="form-control form-format mb-2" v-model="password" type="password" id="signup-password">
                                         <div class="small red text-danger" id="password-error" > </div>
                                     </div>
 
                                     <!-- Second Half -->
                                     <div class="col" id="firstcol">
                                         <label class="text-size medium text-uppercase mt-2" for="streetAdd">Street Address</label>
-                                        <input class="form-control form-format mb-2" v-model="streetAdd" type="text" id="signup-street" required>
+                                        <input class="form-control form-format mb-2" v-model="streetAdd" type="text" id="signup-street" >
+                                        <div class="small red text-danger" id="street-error" > </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="city">City</label>
-                                        <input class="form-control form-format mb-2" v-model="city" type="text" id="signup-city" required>
+                                        <input class="form-control form-format mb-2" v-model="city" type="text" id="signup-city" >
+                                        <div class="small red text-danger" id="city-error" > </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="province">Province</label>
-                                        <input class="form-control form-format mb-2" v-model="province" type="text" id="signup-province" required>
+                                        <input class="form-control form-format mb-2" v-model="province" type="text" id="signup-province" >
+                                        <div class="small red text-danger" id="province-error" > </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
-                                        <select class="form-control form-format mb-2" v-model="region" id="signup-region" required>
+                                        <select class="form-control form-format mb-2" v-model="region" id="signup-region" >
                                             <option value="NCR">NCR</option>
                                             <option value="N. LUZON">N. LUZON</option>
                                             <option value="S. LUZON">S. LUZON</option>
@@ -59,9 +65,11 @@
                                             <option value="MINDANAO">MINDANAO</option>
                                             <option value="ISLANDER">ISLANDER</option>
                                         </select>
+                                        <div class="small red text-danger" id="region-error" > </div>
 
                                         <label class="text-size medium text-uppercase mt-2" for="zipcode">Zipcode</label>
-                                        <input class="form-control form-format mb-2" v-model="zipcode" type="number" min="0" id="signup-zipcode" required>
+                                        <input class="form-control form-format mb-2" v-model="zipcode" type="number" min="0" id="signup-zipcode" >
+                                        <div class="small red text-danger" id="zipcode-error" > </div>
                                     </div>
                                 </div>
 
@@ -116,23 +124,89 @@ export default {
             this.$store.commit('SET_NEWUSER', true)
             // this.$store.commit('SET_CONCESSIONAIRE', false)
 
-            // Valid email validation
-            var validemail = $("#signup-email").attr('value')
+            // First name required
+            var validFirstName = $("#signup-firstname").val();
 
+            if (validFirstName.length < 1)
+                $("#firstname-error").text("Please fill out this field.");
+            else
+                $("#firstname-error").text("");
+
+            // Last name required
+            var validLastName = $("#signup-lastname").val();
+
+            if (validLastName.length < 1)
+                $("#lastname-error").text("Please fill out this field.");
+            else
+                $("#lastname-error").text("");
+
+            // Contact Number required
+            var validContactNo = $("#signup-contactNo").val();
+
+            if (validContactNo.length < 1)
+                $("#contactno-error").text("Please fill out this field.");
+            else
+                $("#contactno-error").text("");
+            
+            // Valid email validation
+            var validemail = $("#signup-email").val();
+
+        
             if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(validemail))
                 $("#invalid-email").text("Email is invalid.");
             else
                 $("#invalid-email").text(" ");
                 
             // Password length validation
-            var pwlength = $("#signup-password").val.length;
+            var pwlength = $("#signup-password").val();
 
-            if (pwlength < 6)
+            if (pwlength.length < 6)
                 $("#password-error").text("Password must be at least 6 characters.");
             else
                 $("#password-error").text("");
 
+            
+            // Street required
+            var validStreet = $("#signup-street").val();
 
+            if (validStreet.length < 1)
+                $("#street-error").text("Please fill out this field.");
+            else
+                $("#street-error").text("");
+
+            // City required
+            var validCity = $("#signup-city").val();
+
+            if (validCity.length < 1)
+                $("#city-error").text("Please fill out this field.");
+            else
+                $("#city-error").text("");
+
+            // Province required
+            var validProvince = $("#signup-province").val();
+
+            if (validProvince.length < 1)
+                $("#province-error").text("Please fill out this field.");
+            else
+                $("#province-error").text("");
+
+            // Region required
+            var validRegion = $("#signup-region");
+
+            if (validRegion[0].selectedIndex <0 )
+                $("#region-error").text("Please fill out this field.");
+            else
+                $("#region-error").text("");
+
+            // Zipcode required
+            var validZipcode = $("#signup-zipcode").val();
+
+            if (validZipcode.length < 1)
+                $("#zipcode-error").text("Please fill out this field.");
+            else
+                $("#zipcode-error").text("");
+            
+           
             try {
                 const result = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password)
                 

@@ -8,6 +8,15 @@
                     <p class="text-size text-uppercase">Log In</p>
                 </div>
 
+                <div id="login-err" class="row-md-12 container-fluid" style="margin-top: 1.5rem;display: none;">
+                    <div class="rounded" style="background-color: rgb(249, 119, 127); color: white; padding: 10px 20px; text-transform: none; font-size: 1rem;display: flex;align-items: center;gap: 7px;">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: inline-block; vertical-align: text-bottom;">
+                            <path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path>
+                        </svg>
+                        <div id="login-err-msg">Invalid email or password</div>
+                    </div>
+                </div>
+
                 <form ref="registerForm" action="" @submit="submit">
                     <div class="container-fluid border-bottom d-flex justify-content-center">
                         <div class="login-container my-1">
@@ -70,21 +79,29 @@ export default {
                         if(doc.data().role == "admin")
                             this.$store.commit('SET_ADMIN', true)
                             this.$router.push("/dashboard/sales")
+                        $("#login-err").hide()
                         // this.$store.commit("SET_USER", result.user.uid, result.user.email)
                     } else {
-                        //console.log("No such document!");
+                        $("#login-err-msg").text("Invalid email or password")
+                        $("#login-err").show()
+                        console.log("No such document!");
                     }
                 }).catch((error) => {
-                    //console.log("Error getting document:", error);
+                    $("#login-err-msg").text("An unexpected error occurred")
+                    $("#login-err").show()
+                    console.log("Error getting document:", error);
                 });
 
                 $("#login").hide()
                 $('.modal-backdrop').remove();
                 $('body').css({overflow: 'visible'});
             } catch (e) {
+                $("#login-err-msg").text("Invalid email or password")
+                $("#login-err").show()
                 console.error(e);
             }
-        }
+        },
+
     }
 }
 </script>

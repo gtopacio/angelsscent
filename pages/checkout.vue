@@ -55,6 +55,15 @@
 
                                 <tbody class="regular">
                                     <tr>
+                                        <td>Voucher</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>₱{{ voucher }}</td>
+                                    </tr>
+                                </tbody>
+
+                                <tbody class="regular">
+                                    <tr>
                                         <td>Subtotal</td>
                                         <td></td>
                                         <td></td>

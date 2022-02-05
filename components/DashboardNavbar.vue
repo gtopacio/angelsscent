@@ -11,6 +11,10 @@
             <li class="nav-item regular">
                 <NuxtLink to="/dashboard/addproduct"><a class="nav-link">Add Product</a></Nuxtlink>
             </li>
+            <li class="nav-item regular">
+                <NuxtLink to="/dashboard/addvoucher"><a class="nav-link">Add Voucher</a></Nuxtlink>
+            </li>
+
             <li class="nav-item mt-4">
                 <span class="navbar-brand">Orders and Sales</span>
             </li>

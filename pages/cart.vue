@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { cartAsyncData } from '../util/asyncData/cart.js'
 export default {
     computed: {

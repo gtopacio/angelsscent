@@ -58,7 +58,7 @@
 
                                         <label class="text-size medium text-uppercase mt-2" for="region">Region</label>
                                         <select class="form-control form-format mb-2" v-model="region" id="signup-region" >
-                                            <option value="NCR">NCR</option>
+                                            <option value="NCR" selected>NCR</option>
                                             <option value="N. LUZON">N. LUZON</option>
                                             <option value="S. LUZON">S. LUZON</option>
                                             <option value="VISAYAS">VISAYAS</option>
@@ -125,7 +125,7 @@ export default {
             // this.$store.commit('SET_CONCESSIONAIRE', false)
 
             // First name required
-            var validFirstName = $("#signup-firstname").val();
+            var validFirstName = this.fName;
 
             if (validFirstName.length < 1)
                 $("#firstname-error").text("Please fill out this field.");
@@ -133,7 +133,7 @@ export default {
                 $("#firstname-error").text("");
 
             // Last name required
-            var validLastName = $("#signup-lastname").val();
+            var validLastName = this.lName;
 
             if (validLastName.length < 1)
                 $("#lastname-error").text("Please fill out this field.");
@@ -141,33 +141,33 @@ export default {
                 $("#lastname-error").text("");
 
             // Contact Number required
-            var validContactNo = $("#signup-contactNo").val();
+            var validContactNo = this.contactNo;
 
             if (validContactNo.length < 1)
                 $("#contactno-error").text("Please fill out this field.");
             else
                 $("#contactno-error").text("");
-            
-            // Valid email validation
-            var validemail = $("#signup-email").val();
 
-        
+            // Valid email validation
+            var validemail = this.email;
+
+
             if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(validemail))
                 $("#invalid-email").text("Email is invalid.");
             else
                 $("#invalid-email").text(" ");
-                
+
             // Password length validation
-            var pwlength = $("#signup-password").val();
+            var pwlength = this.password;
 
             if (pwlength.length < 6)
                 $("#password-error").text("Password must be at least 6 characters.");
             else
                 $("#password-error").text("");
 
-            
+
             // Street required
-            var validStreet = $("#signup-street").val();
+            var validStreet = this.streetAdd;
 
             if (validStreet.length < 1)
                 $("#street-error").text("Please fill out this field.");
@@ -175,7 +175,7 @@ export default {
                 $("#street-error").text("");
 
             // City required
-            var validCity = $("#signup-city").val();
+            var validCity = this.city;
 
             if (validCity.length < 1)
                 $("#city-error").text("Please fill out this field.");
@@ -183,7 +183,7 @@ export default {
                 $("#city-error").text("");
 
             // Province required
-            var validProvince = $("#signup-province").val();
+            var validProvince = this.province;
 
             if (validProvince.length < 1)
                 $("#province-error").text("Please fill out this field.");
@@ -191,25 +191,25 @@ export default {
                 $("#province-error").text("");
 
             // Region required
-            var validRegion = $("#signup-region");
+            var validRegion = this.region//$("#signup-region");
 
-            if (validRegion[0].selectedIndex <0 )
+            if (validRegion.length < 1 )
                 $("#region-error").text("Please fill out this field.");
             else
                 $("#region-error").text("");
 
             // Zipcode required
-            var validZipcode = $("#signup-zipcode").val();
+            var validZipcode = this.zipcode;
 
             if (validZipcode.length < 1)
                 $("#zipcode-error").text("Please fill out this field.");
             else
                 $("#zipcode-error").text("");
-            
-           
+
+
             try {
                 const result = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password)
-                
+
                 await this.createUserDocument(result.user.uid, result.user.email, this.fName, this.lName, this.contactNo, this.streetAdd, this.city, this.province, this.region, this.zipcode)
                 $("#signup").hide()
                 $('.modal-backdrop').remove();

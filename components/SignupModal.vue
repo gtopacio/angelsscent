@@ -8,6 +8,15 @@
                     <p class="text-size text-uppercase">Sign Up</p>
                 </div>
 
+                <div id="signup-err" class="row-md-12 my-4 container-fluid" style="display: none;">
+                    <div class="rounded" style="background-color: rgb(249, 119, 127); color: white; padding: 10px 20px; text-transform: none; font-size: 1rem;display: flex;align-items: center;gap: 7px;">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display: inline-block; vertical-align: text-bottom;">
+                            <path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path>
+                        </svg>
+                        <div id="signup-err-msg">User already exists</div>
+                    </div>
+                </div>
+
                 <form ref="registerForm" action="" @submit="submit" >
                     <div class="container-fluid d-flex justify-content-center" id="form-container">
                         <div class="signup-container my-1" >
@@ -211,12 +220,14 @@ export default {
                 const result = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password)
 
                 await this.createUserDocument(result.user.uid, result.user.email, this.fName, this.lName, this.contactNo, this.streetAdd, this.city, this.province, this.region, this.zipcode)
+                $("#signup-err").hide()
                 $("#signup").hide()
                 $('.modal-backdrop').remove();
                 this.$router.push('/products')
 
 
             } catch (e) {
+                $("#signup-err").show()
                 console.error(e)
             }
         },

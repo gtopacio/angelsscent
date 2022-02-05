@@ -20,27 +20,27 @@
 
                                 <div class="row px-2">
                                     <div class="col-sm-6 my-3">
-                                        <label for="length" class="form-label">Code</label>
-                                        <input v-model="length" class="form-control" type="text" id="voucher-code" required>
+                                        <label for="code" class="form-label">Code</label>
+                                        <input v-model="code" class="form-control" type="text" id="voucher-code" required>
                                     </div>
 
                                     <div class="col-sm-6 my-3">
-                                        <label for="height" class="form-label">Valid Until</label>
-                                        <input v-model="height" class="form-control" type="date" id="voucher-validity" min="1" required>
-                                    </div>                     
+                                        <label for="expiry" class="form-label">Valid Until</label>
+                                        <input v-model="expiry" class="form-control" type="date" id="voucher-validity" min="1" required>
+                                    </div>
                                 </div>
 
 
                                 <div class="row px-2">
                                     <div class="col-sm-6 my-3">
-                                        <label for="width" class="form-label">Voucher Amount</label>
-                                        <input v-model="width" class="form-control" type="number" id="voucher-amount" min="1" required>
+                                        <label for="amount" class="form-label">Voucher Amount</label>
+                                        <input v-model="amount" class="form-control" type="number" id="voucher-amount" min="1" required>
                                     </div>
 
 
                                     <div class="col-sm-6 my-3">
-                                        <label for="height" class="form-label">Minimum Spend</label>
-                                        <input v-model="height" class="form-control" type="number" id="voucher-minspend" min="1" required>
+                                        <label for="minSpend" class="form-label">Minimum Spend</label>
+                                        <input v-model="minSpend" class="form-control" type="number" id="voucher-minspend" min="1" required>
                                     </div>
                                 </div>
 
@@ -53,7 +53,7 @@
                                     <div class="col-sm-12"></div>
                                 </div>
 
-                                <hr class="my-4"> 
+                                <hr class="my-4">
                             </form>
 
 
@@ -100,15 +100,10 @@
 export default {
     data(){
         return{
-            name: '',
-            description: '',
-            weight: '',
-            length: '',
-            height: '',
-            width: '',
-            price: '',
-            qty: '',
-            tag: ''
+            code:'',
+            expiry:'',
+            amount:0,
+            minSpend:0
         }
     },
     methods: {
@@ -121,15 +116,43 @@ export default {
         async submit(event){
             event.preventDefault()
             this.$emit('submit')
-            
-            /* BACKEND - Store to firebase */
-            
-            // to format date
-            var dateString = date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
 
+            /* BACKEND - Store to firebase */
+
+            // to format date
+            var dateString = this.expiry.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+            try {
+                var checkCode = await this.$fire.firestore.collection("vouchers").doc(this.code).get();
+                if (checkCode.exists) {
+                  alert("Code already exists");
+                  return;
+                }
+            } catch (e) {
+                alert(e)
+            }
+
+            try {
+                this.$fire.firestore.collection("vouchers").doc(this.code).set({
+                    code:this.code,
+                    expiry:dateString,
+                    amount:this.amount,
+                    minSpend:this.minSpend,
+                    used:false
+                })
+                this.$router.push('/vouchers')
+            } catch (e) {
+                alert(e)
+            }
         },
         deleteVoucher(event){
-            confirm("Are you sure you want to delete this voucher?");
+            var confirmAction = confirm("Are you sure you want to delete this voucher?");
+            if (confirmAction) {
+              try {
+                  this.$fire.firestore.collection("vouchers").doc(this.code).delete();
+              } catch (e) {
+                  alert(e)
+              }
+            }
         }
     }
 }

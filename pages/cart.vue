@@ -71,6 +71,10 @@
                                 <div class="col">Total Weight</div>
                                 <div class="col">{{ totalWeight }}g</div>
                             </div>
+
+                            <br>
+                            <input class="form-control form-format me-2 mb-2" v-model="voucher" placeholder="Voucher Code" type="text" id="cart-voucher">
+                            <div class="small red text-danger" id="voucher-error" > </div>
                         </div>
                     </div>
                     <div v-if="items.length > 0" class=" w-100 d-flex justify-content-center">
@@ -143,23 +147,33 @@ export default {
         //     this.totalWeight = sum
         // },
         checkQty(){
-            for(var i = 0; i < this.items.length; i++){
-                let docRef = this.$fire.firestore.collection('products').doc(this.items[i].productid)
-                let cartQty = this.items[i].qty
-                docRef.get().then((doc) => {
-                    if(doc.exists){
-                        if( cartQty > doc.data().qty){
-                            alert("Quantity for " + doc.data().name + " exceeds number of available in stock")
-                            this.$router.push('/cart')
+            var inputVoucher = $("#voucher").val();
+            var validvoucher = true;
+
+            // Logic to check valid voucher here
+
+            if (validvoucher == false)
+                $("#voucher-error").text("Invalid Voucher.");
+            else{
+                $("#voucher-error").text("");
+                for(var i = 0; i < this.items.length; i++){
+                    let docRef = this.$fire.firestore.collection('products').doc(this.items[i].productid)
+                    let cartQty = this.items[i].qty
+                    docRef.get().then((doc) => {
+                        if(doc.exists){
+                            if( cartQty > doc.data().qty){
+                                alert("Quantity for " + doc.data().name + " exceeds number of available in stock")
+                                this.$router.push('/cart')
+                            }
+                            else{
+                                this.$router.push('/checkout')
+                            }
                         }
                         else{
-                            this.$router.push('/checkout')
+                            alert("Product doesnt exist")
                         }
-                    }
-                    else{
-                        alert("Product doesnt exist")
-                    }
-                })
+                    })
+                }
             }
         }
     }

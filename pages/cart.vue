@@ -161,7 +161,7 @@ export default {
                     let currDate = new Date();
                     validvoucher = expiry >= currDate;
                     if(validvoucher){
-                        validvoucher = data.minSpend <= this.$store.state.cart.total;
+                        validvoucher = data.minSpend <= this.$store.state.cart.total && this.$store.state.cart.total >= data.amount;
                     }
                 }
             }
@@ -173,7 +173,6 @@ export default {
             else{
                 $("#voucher-error").text("");
                 if (inputVoucher.trim() !== ""){
-                    this.$store.state.cart.voucher = inputVoucher;
                     this.$cookies.set('voucher', inputVoucher, {maxAge: 30 * 24 * 7, sameSite: true})
                 }
                 for(var i = 0; i < this.items.length; i++){

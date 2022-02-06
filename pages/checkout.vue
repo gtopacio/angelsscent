@@ -236,7 +236,6 @@ export default {
     methods: {
         createOrder(){
             try {
-
                 var items = []
                 items = this.items
                 let order = {
@@ -256,8 +255,8 @@ export default {
                 }
 
                 let uid = this.$store.state.user.uid
-                let voucher = this.$cookies.get("voucher")
                 if(this.$cookies.get("voucher")){
+                    let voucher = this.$cookies.get("voucher")
                     order.voucher = voucher
                     this.$fire.firestore.collection("vouchers").doc(voucher).get().then(async(doc) => {
                     if(doc.exists){

@@ -75,15 +75,23 @@
                                 </thead>
 
                                 <tbody>
-                                    <td class="text-uppercase"> SAMPLE1212 </td>
-                                    <td class="text-uppercase"> FRI JAN 07 2022 23:47:21 GMT+0800 (PHILIPPINE STANDARD TIME) </td>
-                                    <td class="text-uppercase"> ₱500.00 </td>
-                                    <td class="text-uppercase"> ₱500.00 </td>
-                                    <td class="text-uppercase" id="voucher-edit">
-                                    <a data-bs-toggle="modal" data-bs-target="#editVoucher" id="edit-voucher">Edit</a>
-                                    <VoucherModal/>
-                                    </td>
-                                    <td class="text-uppercase" id="voucher-delete" @click="deleteVoucher"> DELETE </td>
+                                    <tr :key="voucher.id" :id='voucher.id' v-for="voucher in vouchers">
+                                        <td class="text-uppercase"> {{voucher.code}} </td>
+                                        <td class="text-uppercase"> {{voucher.expiry}} </td>
+                                        <td class="text-uppercase"> ₱{{voucher.amount}} </td>
+                                        <td class="text-uppercase"> ₱{{voucher.minSpend}} </td>
+                                        <td class="text-uppercase" id="voucher-edit">
+                                        <a data-bs-toggle="modal" data-bs-target="#editVoucher" id="edit-voucher">Edit</a>
+                                        <VoucherModal
+                                            :id = "voucher.id"
+                                            :code = "voucher.code"
+                                            :expiry = "voucher.expiry"
+                                            :amount = "voucher.amount"
+                                            :minSpend = "voucher.minSpend"
+                                        />
+                                        </td>
+                                        <td class="text-uppercase" id="voucher-delete" @click="deleteVoucher(voucher.code)"> DELETE </td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -105,6 +113,17 @@ export default {
             amount:0,
             minSpend:0
         }
+    },
+    async asyncData({$fire}){
+        let collection = $fire.firestore.collection('vouchers').where('used', '==', false) //.doc(document.id)
+        let documents = await collection.get()
+        
+        let vouchers = []
+        await Promise.all(documents.docs.map(document => { //remove map for single document
+            vouchers.push({id: document.code, ...document.data()})
+        }))
+
+        return {vouchers}
     },
     methods: {
       /*
@@ -144,11 +163,12 @@ export default {
                 alert(e)
             }
         },
-        deleteVoucher(event){
+        deleteVoucher(code){
             var confirmAction = confirm("Are you sure you want to delete this voucher?");
             if (confirmAction) {
               try {
-                  this.$fire.firestore.collection("vouchers").doc(this.code).delete();
+                  this.$fire.firestore.collection("vouchers").doc(code).delete();
+                  this.$router.go(); //refresh or update values without refreshing
               } catch (e) {
                   alert(e)
               }

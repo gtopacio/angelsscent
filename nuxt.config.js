@@ -69,6 +69,7 @@ export default {
         }
       }
     ],
+    'cookie-universal-nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

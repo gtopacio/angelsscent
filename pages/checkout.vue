@@ -53,12 +53,12 @@
                                     </tr>
                                 </tbody>
 
-                                <tbody class="regular">
+                                <tbody v-if="data.voucher" class="regular">
                                     <tr>
                                         <td>Voucher</td>
                                         <td></td>
                                         <td></td>
-                                        <td>₱{{ voucher }}</td>
+                                        <td>-₱{{ data.voucher.amount }}</td>
                                     </tr>
                                 </tbody>
 
@@ -218,7 +218,9 @@ export default {
             return this.$store.state.cart.items
         },
         total() {
-            return this.$store.state.cart.total
+            let discount = 0;
+            if(this.data.voucher && this.data.voucher.amount) discount = this.data.voucher.amount
+            return this.$store.state.cart.total - discount
         },
         totalWeight() {
             return this.$store.state.cart.totalWeight
@@ -228,15 +230,16 @@ export default {
         }
     },
 
-    async asyncData({ $fire, store }){
-        return await checkoutAsyncData($fire, store)
+    async asyncData({ $fire, store, $cookies }){
+        return await checkoutAsyncData($fire, store, $cookies)
     },
     methods: {
         createOrder(){
             try {
+
                 var items = []
                 items = this.items
-                this.$fire.firestore.collection("orders").add({
+                let order = {
                     userId: this.$store.state.user.uid,
                     name: this.data.fName + ' ' + this.data.lName,
                     email: this.data.email,
@@ -250,7 +253,24 @@ export default {
                     boxes: this.data.boxes,
                     items: items,
                     dateOrdered: this.$fireModule.firestore.Timestamp.now()
-                })
+                }
+
+                let uid = this.$store.state.user.uid
+                let voucher = this.$cookies.get("voucher")
+                if(this.$cookies.get("voucher")){
+                    order.voucher = voucher
+                    this.$fire.firestore.collection("vouchers").doc(voucher).get().then(async(doc) => {
+                    if(doc.exists){
+                        let data = await doc.data();
+                        this.$fire.firestore.collection("vouchers").doc(voucher).set({
+                            ...data, used: true, usedBy: uid
+                        })
+                    }   
+                    this.$cookies.remove("voucher")
+                });
+                }
+                
+                this.$fire.firestore.collection("orders").add(order)
 
                 for(var i = 0; i < items.length; i++){
                     this.$fire.firestore.collection("products").doc(items[i].productid).update({

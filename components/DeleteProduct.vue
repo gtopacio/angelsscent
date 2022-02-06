@@ -37,6 +37,7 @@ export default {
             this.$fire.firestore.collection("products").doc(id).delete().then(() => {
                 this.$router.app.refresh();
                 $('.modal-backdrop').remove();
+                $('body').css({overflow: 'visible'});
             })
         }
     }

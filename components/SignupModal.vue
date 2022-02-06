@@ -215,6 +215,8 @@ export default {
             else
                 $("#zipcode-error").text("");
 
+            
+
 
             try {
                 const result = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password)
@@ -227,7 +229,9 @@ export default {
 
 
             } catch (e) {
-                $("#signup-err").show()
+                if (e.code === 'auth/email-already-in-use') {
+                    $("#signup-err").show()
+                }
                 console.error(e)
             }
         },

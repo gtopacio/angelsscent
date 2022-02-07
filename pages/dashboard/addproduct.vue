@@ -123,6 +123,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
     data(){
         return{
@@ -150,7 +151,7 @@ export default {
             let t = document.getElementById("tagoption");
             let tagNum = t.options[t.selectedIndex].value;
             this.tag = tagNum == 1 ? 'men' : 'women';
-            
+
             var isValidProduct = true;
 
             if (this.name.length < 1){
@@ -208,7 +209,7 @@ export default {
             }
             else
                 $("#listing-quantity-error").text("");
-            
+
             //add error for missing image
             //$("#product-photo-error").text("Please upload an image.");
             //$("#product-photo-error").text("");

@@ -47,4 +47,36 @@ describe('Addproduct', () => {
     wrapper.find('form').trigger('submit');
     expect(wrapper.emitted()).toHaveProperty('submit');
   });
+
+  test("submits form but invalid product", async() => {
+    const wrapper = shallowMount(addproduct, options);
+    await wrapper.setData({
+      name:'a',
+      description:'a',
+      weight:'a',
+      length:'a',
+      height:'a',
+      width:'a',
+      price:'a',
+      qty:'a'
+    });
+    await wrapper.find('form').trigger('submit');
+    expect(wrapper.emitted()).toHaveProperty('submit');
+  });
+
+  test("submits form but valid product", async() => {
+    const wrapper = shallowMount(addproduct, options);
+    await wrapper.setData({
+      name:'aasdfasdf',
+      description:'aasdfasdf',
+      weight:'aasdfasdf',
+      length:'aasdfasdf',
+      height:'aasdfasdf',
+      width:'aasdfasdf',
+      price:'aasdfasdf',
+      qty:'aadsfasdf'
+    });
+    await wrapper.find('form').trigger('submit');
+    expect(wrapper.emitted()).toHaveProperty('submit');
+  });
 });

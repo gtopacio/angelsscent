@@ -14,26 +14,26 @@
                         <div class="row px-2">
                             <div class="col-sm-6 my-3">
                                 <label for="length" class="form-label">Code</label>
-                                <input v-model="length" class="form-control" type="text" id="voucher-code" required>
+                                <input v-model="code" class="form-control" type="text" id="voucher-code" required>
                             </div>
 
                             <div class="col-sm-6 my-3">
                                 <label for="height" class="form-label">Valid Until</label>
-                                <input v-model="height" class="form-control" type="date" id="voucher-validity" min="1" required>
-                            </div>                     
+                                <input v-model="expiry" class="form-control" type="date" id="voucher-validity" min="1" required>
+                            </div>
                         </div>
 
 
                         <div class="row px-2">
                             <div class="col-sm-6 my-3">
                                 <label for="width" class="form-label">Voucher Amount</label>
-                                <input v-model="width" class="form-control" type="number" id="voucher-amount" min="1" required>
+                                <input v-model="amount" class="form-control" type="number" id="voucher-amount" min="1" required>
                             </div>
 
 
                             <div class="col-sm-6 my-3">
                                 <label for="height" class="form-label">Minimum Spend</label>
-                                <input v-model="height" class="form-control" type="number" id="voucher-minspend" min="1" required>
+                                <input v-model="minSpend" class="form-control" type="number" id="voucher-minspend" min="1" required>
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-secondary btn-format text-uppercase" id = "submit">Save Changes</button>
                     </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
@@ -57,20 +57,41 @@ import $ from 'jquery'
 export default {
     data(){
         return{
-            email: '',
-            password: ''
         }
     },
+    props:{
+        id: String,
+        code: String,
+        expiry: String,
+        amount: String,
+        minSpend: String
+    },
     methods: {
+      /*
         async asyncdata( $fire, store ){
             // let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
             // console.log(docRef)
-        },
+        },*/
         async submit(event) {
              event.preventDefault();
              this.$emit('submit');
 
             /* BACKEND FOR EDITING VOUCHER */
+            var dateString = this.expiry.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+            try {
+                await this.$fire.firestore.collection("vouchers").doc(this.code).set({
+                    code:this.code,
+                    expiry:dateString,
+                    amount:this.amount,
+                    minSpend:this.minSpend,
+                    used:false
+                })
+                this.$router.app.refresh();
+                $('#editVoucher').hide();
+                $('.modal-backdrop').remove();
+            } catch (e) {
+                alert(e)
+            }
         }
     }
 }

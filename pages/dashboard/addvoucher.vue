@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import { addvoucherAsyncData } from '../../util/asyncData/dashboard/addvoucher.js'
 export default {
     data(){
         return{
@@ -115,15 +116,7 @@ export default {
         }
     },
     async asyncData({$fire}){
-        let collection = $fire.firestore.collection('vouchers').where('used', '==', false) //.doc(document.id)
-        let documents = await collection.get()
-        
-        let vouchers = []
-        await Promise.all(documents.docs.map(document => { //remove map for single document
-            vouchers.push({id: document.code, ...document.data()})
-        }))
-
-        return {vouchers}
+      return await addvoucherAsyncData($fire);
     },
     methods: {
       /*
@@ -158,7 +151,7 @@ export default {
                     minSpend:this.minSpend,
                     used:false
                 })
-                this.$router.push('/vouchers')
+                this.$router.app.refresh();
             } catch (e) {
                 alert(e)
             }
@@ -167,8 +160,8 @@ export default {
             var confirmAction = confirm("Are you sure you want to delete this voucher?");
             if (confirmAction) {
               try {
-                  this.$fire.firestore.collection("vouchers").doc(code).delete();
-                  this.$router.go(); //refresh or update values without refreshing
+                  this.$fire.firestore.collection("vouchers").doc(code.trim()).delete();
+                  this.$router.app.refresh();
               } catch (e) {
                   alert(e)
               }

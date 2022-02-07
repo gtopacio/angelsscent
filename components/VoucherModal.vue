@@ -20,7 +20,7 @@
                             <div class="col-sm-6 my-3">
                                 <label for="height" class="form-label">Valid Until</label>
                                 <input v-model="expiry" class="form-control" type="date" id="voucher-validity" min="1" required>
-                            </div>                     
+                            </div>
                         </div>
 
 
@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-secondary btn-format text-uppercase" id = "submit">Save Changes</button>
                     </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
@@ -57,21 +57,21 @@ import $ from 'jquery'
 export default {
     data(){
         return{
-            
         }
     },
     props:{
         id: String,
         code: String,
         expiry: String,
-        amount: Number,
-        minSpend: Number
+        amount: String,
+        minSpend: String
     },
     methods: {
+      /*
         async asyncdata( $fire, store ){
             // let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
             // console.log(docRef)
-        },
+        },*/
         async submit(event) {
              event.preventDefault();
              this.$emit('submit');
@@ -86,7 +86,9 @@ export default {
                     minSpend:this.minSpend,
                     used:false
                 })
-                this.$router.go() //Refresh or change value without refreshing
+                this.$router.app.refresh();
+                $('#editVoucher').hide();
+                $('.modal-backdrop').remove();
             } catch (e) {
                 alert(e)
             }

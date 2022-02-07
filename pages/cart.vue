@@ -90,6 +90,11 @@
 import $ from 'jquery'
 import { cartAsyncData } from '../util/asyncData/cart.js'
 export default {
+    data(){
+        return{
+            voucher:''
+        }
+    },
     computed: {
         items() {
             return this.$store.state.cart.items
@@ -148,7 +153,7 @@ export default {
         //     this.totalWeight = sum
         // },
         async checkQty(){
-            var inputVoucher = $("#cart-voucher").val();
+            var inputVoucher = this.voucher;//$("#cart-voucher").val();
             var validvoucher = true;
 
             // Logic to check valid voucher here
@@ -163,16 +168,18 @@ export default {
                     if(validvoucher){
                         validvoucher = data.minSpend <= this.$store.state.cart.total && this.$store.state.cart.total >= data.amount;
                     }
+                    if(data.used)
+                      validvoucher = false;
                 }
             }
 
-            if (validvoucher == false){
+            if (validvoucher == false && typeof this.$cookies != 'undefined'){
                 $("#voucher-error").text("Invalid Voucher.");
                 this.$cookies.remove('voucher');
             }
             else{
                 $("#voucher-error").text("");
-                if (inputVoucher.trim() !== ""){
+                if (inputVoucher.trim() !== "" && typeof this.$cookies != 'undefined'){
                     this.$cookies.set('voucher', inputVoucher, {maxAge: 30 * 24 * 7, sameSite: true})
                 }
                 for(var i = 0; i < this.items.length; i++){

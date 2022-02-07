@@ -1,7 +1,7 @@
 {
-    "env":{
-        "test_host_url": "http://localhost:3000/"
-    },
-    "waitForAnimations": false,
-    "animationDistanceThreshold": 50
+  "env": {
+    "test_host_url": "http://localhost:3000/"
+  },
+  "animationDistanceThreshold": 50,
+  "projectId": "id1ic2"
 }

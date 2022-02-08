@@ -75,19 +75,19 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr :key="voucher.id" :id='voucher.id' v-for="voucher in vouchers">
+                                    <tr v-for="voucher in vouchers" :key="voucher.code" :id='voucher.code'>
                                         <td class="text-uppercase"> {{voucher.code}} </td>
                                         <td class="text-uppercase"> {{voucher.expiry}} </td>
                                         <td class="text-uppercase"> ₱{{voucher.amount}} </td>
                                         <td class="text-uppercase"> ₱{{voucher.minSpend}} </td>
                                         <td class="text-uppercase" id="voucher-edit">
-                                        <a data-bs-toggle="modal" data-bs-target="#editVoucher" id="edit-voucher">Edit</a>
+                                        <a data-bs-toggle="modal" :data-bs-target='"#editVoucher"+voucher.code' id="edit-voucher">Edit</a>
                                         <VoucherModal
-                                            :id = "voucher.id"
-                                            :code = "voucher.code"
-                                            :expiry = "voucher.expiry"
-                                            :amount = "voucher.amount"
-                                            :minSpend = "voucher.minSpend"
+                                            v-bind:id = "voucher.code"
+                                            v-bind:code = "voucher.code"
+                                            v-bind:expiry = "voucher.expiry"
+                                            v-bind:amount = "voucher.amount"
+                                            v-bind:minSpend = "voucher.minSpend"
                                         />
                                         </td>
                                         <td class="text-uppercase" id="voucher-delete" @click="deleteVoucher(voucher.code)"> DELETE </td>
@@ -107,14 +107,6 @@
 <script>
 import { addvoucherAsyncData } from '../../util/asyncData/dashboard/addvoucher.js'
 export default {
-    data(){
-        return{
-            code:'',
-            expiry:'',
-            amount:0,
-            minSpend:0
-        }
-    },
     async asyncData({$fire}){
       return await addvoucherAsyncData($fire);
     },

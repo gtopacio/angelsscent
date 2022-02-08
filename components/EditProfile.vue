@@ -73,31 +73,25 @@ import $ from 'jquery'
 
 export default {
     props:{
-        id: String, 
-        fName: String, 
-        lName: String, 
-        email: String, 
+        id: String,
+        fName: String,
+        lName: String,
+        email: String,
         contactNo: String
     },
     methods:{
-        async submit(event){
-            event.preventDefault()
+        submit(event){
+            event.preventDefault();
+            this.$emit('submit');
             try {
                 this.$fire.firestore.collection("users").doc(this.id).update({
                     fName: this.fName.trim(),
-                    lName: this.lName.trim(), 
-                    // email: this.email.trim(),
-                    contactNo: this.contactNo.trim() 
-                })
-
-                // this.$fire.auth.currentUser.updateEmail(this.email.trim())
-                // .then(() => {
-               
-                // });
-                this.$router.app.refresh()
-                $('#editProfile').hide()
+                    lName: this.lName.trim(),
+                    contactNo: this.contactNo.trim()
+                });
+                this.$router.app.refresh();
+                $('#editProfile').hide();
                 $('.modal-backdrop').remove();
-                 
             } catch (e) {
                 alert(e)
             }

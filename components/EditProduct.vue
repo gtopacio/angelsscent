@@ -5,12 +5,12 @@
             <div class="modal-content round">
                 <form @submit="submit">
                     <div class="container-fluid text-start d-flex flex-column regular text-uppercase p-5 w-100 bg">
-                        
+
                         <div class="small text-uppercase">
                         <legend class="my-8">Edit Product</legend>
                         </div>
                         <hr class="my-1">
-                        
+
                         <br><br>
 
                         <div class="row">
@@ -18,7 +18,7 @@
                                 <p>Product Photo</p>
                             </div>
                             <div class="col-sm-9">
-                                <input class="form-control form-control-sm" type="file" @change="uploadImage" accept="image/png, image/gif, image/jpeg">
+                                <input class="form-control form-control-sm" id="uploadField" type="file" @change="uploadImage" accept="image/png, image/gif, image/jpeg">
                             </div>
                         </div>
                         <div class="row mt-3 pt-2">
@@ -49,7 +49,7 @@
                                 <label for="length" class="form-label">Length</label>
                                 <input v-model="length" class="form-control" type="number" min="1" required>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="width" class="form-label">Width</label>
                                 <input v-model="width" class="form-control" type="number" min="1" required>
@@ -61,9 +61,9 @@
                                 <label for="height" class="form-label">Height</label>
                                 <input v-model="height" class="form-control" type="number" min="1" required>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
-                                <label for="weight" class="form-label">Weight (in ML)</label>
+                                <label for="weight" class="form-label">Weight (in g)</label>
                                 <input v-model="weight" class="form-control" type="number" min="1" required>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 <label for="price" class="form-label">Price</label>
                                 <input v-model="price" class="form-control" type="number"  min="1" required>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="qty" class="form-label">Quantity</label>
                                 <input v-model="qty" class="form-control" type="number" min="0" required>
@@ -101,7 +101,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="col-sm-6 my-3">
                                 <label for="tagoption" class="form-label">Tag</label>
                                 <div v-if="tag == 'men'" class="col-sm-12">
@@ -113,14 +113,14 @@
                                 <div v-if="tag == 'women'" class="col-sm-12">
                                     <select :id="'tagoption'+id" class="form-select">
                                         <option value="1">MEN</option>
-                                        <option value="2" select>WOMEN</option>
+                                        <option value="2" selected>WOMEN</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                       
-                        
-                       
+
+
+
                         <!-- <div class="row mt-3 pt-2">
                             <div class="col-sm-3">
                                 <p>Tag</p>
@@ -135,9 +135,9 @@
                                 </ul>
                             </div>
                         </div> -->
-                        
+
                         <div class="row mt-3 pt-5 w-100 d-flex justify-content-center">
-                            <button type="submit" class="btn btn-lg btn-block w-50 save-btn btn-outline-light text-uppercase">Save Changes</button>
+                            <button type="submit" id="submit-button" class="btn btn-lg btn-block w-50 save-btn btn-outline-light text-uppercase">Save Changes</button>
                         </div>
                     </div>
                 </form>
@@ -157,83 +157,54 @@ export default {
     },
     props:{
         id: String,
-        name: String, 
-        description: String, 
-        length: Number, 
-        width: Number, 
+        name: String,
+        description: String,
+        length: Number,
+        width: Number,
         height: Number,
-        weight: Number, 
-        price: Number, 
-        qty: Number, 
+        weight: Number,
+        price: Number,
+        qty: Number,
         display: String,
         tag: String
     },
-    async asyncData(){
-        console.log(this.tag)
-    },
     methods:{
-        async submit(event){
-            event.preventDefault()
-            var displayStatus, tagStatus
-            var e = document.getElementById("displayoption"+this.id);
-            var displayNum = e.options[e.selectedIndex].value;
-            var t = document.getElementById("tagoption"+this.id);
-            var tagNum = t.options[t.selectedIndex].value;
-            
-            console.log(this.image)
-            if( displayNum == 1)
-                displayStatus = 'listed'
-            else
-                displayStatus = 'hidden'
-            if( tagNum == 1)
-                tagStatus = 'men'
-            else
-                tagStatus = 'women'
-            if(this.image == null){
-                try {
-                    this.$fire.firestore.collection("products").doc(this.id).update({
-                        name: this.name.trim(), 
-                        description: this.description.trim(),
-                        length: parseInt(this.length), 
-                        width: parseInt(this.width),  
-                        height: parseInt(this.height),
-                        weight: parseInt(this.weight), 
-                        price: parseInt(this.price), 
-                        qty: parseInt(this.qty), 
-                        tag: tagStatus,
-                        display: displayStatus
-                    })
-                    
-                } catch (e) {
-                    alert(e)
-                }
+        submit(event){
+            event.preventDefault();
+            this.$emit('submit');
+            let e = document.getElementById(`displayoption${this.id}`);
+            let t = document.getElementById(`tagoption${this.id}`);
+
+            let displayNum = !e ? "hidden" : e.options[e.selectedIndex].value;
+            let tagNum = !t ? 1 : t.options[t.selectedIndex].value;
+
+            let displayStatus = displayNum == 1 ? 'listed' : 'hidden';
+            let tagStatus = tagNum == 1 ? 'men' : 'women';
+            let newData = {
+                name: this.name.trim(),
+                description: this.description.trim(),
+                length: parseInt(this.length),
+                width: parseInt(this.width),
+                height: parseInt(this.height),
+                weight: parseInt(this.weight),
+                price: parseInt(this.price),
+                qty: parseInt(this.qty),
+                tag: tagStatus,
+                display: displayStatus
+            };
+
+            if(this.image != null){
+                newData.img = this.image;
             }
-            else{
-                try {
-                    this.$fire.firestore.collection("products").doc(this.id).update({
-                        name: this.name.trim(), 
-                        description: this.description.trim(),
-                        length: parseInt(this.length), 
-                        width: parseInt(this.width),  
-                        height: parseInt(this.height),
-                        weight: parseInt(this.weight), 
-                        price: parseInt(this.price), 
-                        qty: parseInt(this.qty), 
-                        tag: tagStatus,
-                        display: displayStatus,
-                        img: this.image
-                    })
-                    
-                } catch (e) {
-                    alert(e)
-                }
-            }
-            
-            this.$router.app.refresh()         
+
+            this.$fire.firestore.collection("products").doc(this.id).update(newData);
+            this.$router.app.refresh();
+            $('#edit-modal'+this.id).hide();
+            $('.modal-backdrop').remove();
         },
         uploadImage(e){
             let file = e.target.files[0]
-            var storageRef = this.$fire.storage.ref(file.name)
+            let storageRef = this.$fire.storage.ref(file.name)
             let uploadTask = storageRef.put(file)
             uploadTask.on('state changed', (snapshot) => {
             }, (error) => {

@@ -28,16 +28,16 @@
                                         <td><img :src="item.img" class="img-fluid rounded"></td>
                                         <td class="text-left">
                                             <div>{{ item.name }}</div>
-                                            <div class="light">{{ item.weight }}ML</div>
+                                            <div class="light">{{ item.weight }}g</div>
                                         </td>
                                         <td>₱{{ item.price }}.00</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col d-flex flex-row justify-content-center mt-2">
                                                     <div class="def-number-input number-input safari_only">
-                                                        <button v-on:click='subtractItem(item.id)' class="minus"></button>
+                                                        <button :id='"minus"+item.id' v-on:click='subtractItem(item.id)' class="minus"></button>
                                                         <input :id='item.id+" qty"' class="quantity" name="quantity" :value="item.qty" min="0" type="number" disabled>
-                                                        <button v-on:click='addItem(item.id)' class="plus"></button>
+                                                        <button :id='"plus"+item.id' v-on:click='addItem(item.id)' class="plus"></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -69,12 +69,16 @@
                             </div>
                             <div class="row d-flex flex-row my-2">
                                 <div class="col">Total Weight</div>
-                                <div class="col">{{ totalWeight }}ML</div>
+                                <div class="col">{{ totalWeight }}g</div>
                             </div>
+
+                            <br>
+                            <input class="form-control form-format me-2 mb-2" v-model="voucher" placeholder="Voucher Code" type="text" id="cart-voucher">
+                            <div class="small red text-danger" id="voucher-error" > </div>
                         </div>
                     </div>
                     <div v-if="items.length > 0" class=" w-100 d-flex justify-content-center">
-                        <button class="shadow text-uppercase btn btn-light checkout regular mt-4" @click="checkQty()">Proceed to Checkout</button>
+                        <button id="checkQtyBtn" class="shadow text-uppercase btn btn-light checkout regular mt-4" @click="checkQty()">Proceed to Checkout</button>
                     </div>
                 </div>
             </div>
@@ -83,8 +87,14 @@
 </template>
 
 <script>
-
+import $ from 'jquery'
+import { cartAsyncData } from '../util/asyncData/cart.js'
 export default {
+    data(){
+        return{
+            voucher:''
+        }
+    },
     computed: {
         items() {
             return this.$store.state.cart.items
@@ -101,17 +111,7 @@ export default {
     },
     methods: {
         async asyncData( {$fire, store} ){
-            console.log(store.state.cart)
-            let docRef = $fire.firestore.collection('users').doc(store.state.user.uid)
-                                        .collection('cart')
-            let documents =  await docRef.get()
-
-            let items = []
-            await Promise.all(documents.docs.map(document => { //remove map for single document
-                items.push({id: document.id, ...document.data()})
-            }))
-            console.log(store.state)
-            return { items }
+          return await cartAsyncData($fire, store);
         },
         addItem(id){
            this.$store.commit('cart/increaseQty', id)
@@ -123,52 +123,83 @@ export default {
                 this.$store.commit('cart/decreaseQty', id)
             }
         },
-        onDelete(id){    
-            let item = this.items.find(obj => obj.id === id)
-            this.$store.commit('cart/remove', { 
-                id: item.id, 
-                uid: this.$fire.auth.currentUser.uid
-            })
-            console.log(this.$fire.auth.currentUser.uid)
-        },
-        updateTotal(){
-            var sum = 0
-            for(var i = 0; i < this.items.length; i++){
-                sum += this.items[i].subtotal
+        // onDelete(id){
+        //     let item = this.items.find(obj => obj.id === id)
+        //     this.$store.commit('cart/remove', {
+        //         id: item.id,
+        //         uid: this.$fire.auth.currentUser.uid
+        //     })
+        //     console.log(this.$fire.auth.currentUser.uid)
+        // },
+        // updateTotal(){
+        //     var sum = 0
+        //     for(var i = 0; i < this.items.length; i++){
+        //         sum += this.items[i].subtotal
+        //     }
+        //     this.total = sum
+        // },
+        // updateTotalQty(){
+        //     var sum = 0
+        //     for(var i = 0; i < this.items.length; i++){
+        //         sum += this.items[i].qty
+        //     }
+        //     this.totalQty = sum
+        // },
+        // updateTotalWeight(){
+        //     var sum = 0
+        //     for(var i = 0; i < this.items.length; i++){
+        //         sum += (this.items[i].weight * this.items[i].qty)
+        //     }
+        //     this.totalWeight = sum
+        // },
+        async checkQty(){
+            var inputVoucher = this.voucher;//$("#cart-voucher").val();
+            var validvoucher = true;
+
+            // Logic to check valid voucher here
+            if(inputVoucher.trim() !== ""){
+                validvoucher = false;
+                let doc = await this.$fire.firestore.collection('vouchers').doc(inputVoucher).get();
+                if(doc.exists){
+                    let data = await doc.data();
+                    let expiry = new Date(data.expiry);
+                    let currDate = new Date();
+                    validvoucher = expiry >= currDate;
+                    if(validvoucher){
+                        validvoucher = data.minSpend <= this.$store.state.cart.total && this.$store.state.cart.total >= data.amount;
+                    }
+                    if(data.used)
+                      validvoucher = false;
+                }
             }
-            this.total = sum
-        },
-        updateTotalQty(){
-            var sum = 0
-            for(var i = 0; i < this.items.length; i++){
-                sum += this.items[i].qty
+
+            if (validvoucher == false && typeof this.$cookies != 'undefined'){
+                $("#voucher-error").text("Invalid Voucher.");
+                this.$cookies.remove('voucher');
             }
-            this.totalQty = sum
-        },
-        updateTotalWeight(){
-            var sum = 0
-            for(var i = 0; i < this.items.length; i++){
-                sum += (this.items[i].weight * this.items[i].qty)
-            }
-            this.totalWeight = sum
-        },
-        checkQty(){
-            for(var i = 0; i < this.items.length; i++){
-                let docRef = this.$fire.firestore.collection('products').doc(this.items[i].productid)
-                let cartQty = this.items[i].qty
-                docRef.get().then((doc) => {
-                    if(doc.exists){
-                        if( cartQty > doc.data().qty){
-                            alert("Quantity for " + doc.data().name + " exceeds number of available in stock")
+            else{
+                $("#voucher-error").text("");
+                if (inputVoucher.trim() !== "" && typeof this.$cookies != 'undefined'){
+                    this.$cookies.set('voucher', inputVoucher, {maxAge: 30 * 24 * 7, sameSite: true})
+                }
+                for(var i = 0; i < this.items.length; i++){
+                    let docRef = this.$fire.firestore.collection('products').doc(this.items[i].productid)
+                    let cartQty = this.items[i].qty
+                    docRef.get().then((doc) => {
+                        if(doc.exists){
+                            if( cartQty > doc.data().qty){
+                                alert("Quantity for " + doc.data().name + " exceeds number of available in stock")
+                                this.$router.push('/cart')
+                            }
+                            else{
+                                this.$router.push('/checkout')
+                            }
                         }
                         else{
-                            this.$router.push('/checkout')
+                            alert("Product doesnt exist")
                         }
-                    }
-                    else{
-                        alert("Product doesnt exist")
-                    }
-                })
+                    })
+                }
             }
         }
     }

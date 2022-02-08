@@ -12,7 +12,7 @@
 
                                 <div class="d-flex justify-content-center">
                                     <div class="row btn-container mt-4 mb-2">
-                                        <div class="col d-grid gap-2"><button type="button" @click="onDelete()" class="btn btn-secondary btn-format text-uppercase">Remove</button></div>
+                                        <div class="col d-grid gap-2"><button type="button" @click="onDelete()" id="deleteButton" class="btn btn-secondary btn-format text-uppercase">Remove</button></div>
                                         <div class="col d-grid gap-2"><button type="button" class="btn btn-secondary btn-format text-uppercase" data-bs-dismiss="modal">Cancel</button></div>
                                     </div>
                                 </div>

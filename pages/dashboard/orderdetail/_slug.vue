@@ -5,31 +5,31 @@
         </div>
         <div class="container-fluid my-4 px-4">
             <NuxtLink class="text-uppercase return regular" to="/dashboard/orders">
-                Return To Order List 
+                Return To Order List
             </NuxtLink>
-        
+
             <div class="row">
                 <div class="col my-3">
                     <div class="order-box shadow container-fluid p-4">
                         <div class="order-title medium">ORDER {{ slug }}</div>
                         <div class="row text-uppercase regular my-2">
                             <div class="col">
-                                Payment Status: 
+                                Payment Status:
                                 <button id="paymentDropDown" class="btn btn-secondary dropdown-toggle btn-outline-light dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ data.paymentStatus }}
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" @click="changePaymentStatus('Unpaid')">Unpaid</a></li>
+                                <ul id="dropdownMenuButton1" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a id="changePaymentStatus1" class="dropdown-item" @click="changePaymentStatus('Unpaid')">Unpaid</a></li>
                                     <li><a class="dropdown-item" @click="changePaymentStatus('Paid')">Paid</a></li>
                                 </ul>
                             </div>
                             <div class="col">
-                                Order Status: 
+                                Order Status:
                                 <button id="orderDropDown" class="btn dropdown-toggle btn-outline-light dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ data.orderStatus}}
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" @click="changeOrderStatus('Pending')">Pending</a></li>
+                                <ul id="dropdownMenuButton2" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a id="changeOrderStatus1"class="dropdown-item" @click="changeOrderStatus('Pending')">Pending</a></li>
                                     <li><a class="dropdown-item" @click="changeOrderStatus('Shipping')">Shipping</a></li>
                                     <li><a class="dropdown-item" @click="changeOrderStatus('Fulfilled')">Fulfilled</a></li>
                                     <li><a class="dropdown-item" @click="changeOrderStatus('Cancelled')">Cancelled</a></li>
@@ -79,8 +79,8 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-3 d-flex justify-content-center"> 
-                        <button type="button" class="shadow text-uppercase btn btn-light button regular" @click="saveChanges(slug)">
+                    <div class="mt-3 d-flex justify-content-center">
+                        <button id="saveChanges" type="button" class="shadow text-uppercase btn btn-light button regular" @click="saveChanges(slug)">
                             Save Changes
                         </button>
                     </div>
@@ -101,7 +101,7 @@
                             <div class="text-uppercase">Contact Email</div>
                             <div class="details regular">{{ data.email }}</div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,25 +109,26 @@
 </template>
 
 <script>
+import { orderdetail_slugAsyncData } from '../../../util/asyncData/dashboard/orderdetail/_slug.js';
 export default {
     async asyncData({$fire, params}) {
-        let slug = params.slug;
-        let docRef = $fire.firestore.collection('orders').doc(slug)
-        let data = await docRef.get().then(doc => doc.data())
-        console.log(data)
-        return{data, slug}
+        return await orderdetail_slugAsyncData($fire, params);
     },
     methods: {
         changePaymentStatus(string){
             let status = document.getElementById('paymentDropDown')
-            status.innerText = string
+            if (status) {
+              status.innerText = string
+            }
         },
         changeOrderStatus(string){
             let status = document.getElementById('orderDropDown')
-            status.innerText = string
+            if (status) {
+              status.innerText = string
+            }
         },
         saveChanges(id){
-            console.log(id)
+            //console.log(id)
             try {
                 let paymentStatusBtn = document.getElementById('paymentDropDown')
                 let orderStatusBtn = document.getElementById('orderDropDown')
@@ -136,7 +137,7 @@ export default {
                     paymentStatus: paymentStatusBtn.innerText.trim(),
                     orderStatus: orderStatusBtn.innerText.trim()
                 })
-                 
+
             } catch (e) {
                 alert(e)
             }

@@ -65,8 +65,8 @@ describe('Sign-Up Test Suite', () => {
       cy.wait(5000)
 
       // enter home
-      cy.get('#login-email').type('dummy1@gmail.com', { delay: 5})
-      cy.get('#login-password').type('dumdumz', { delay: 5})
+      cy.get('#login-email').type('123468910111@gmail.com', { delay: 5})
+      cy.get('#login-password').type('1234567', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
 
@@ -99,7 +99,7 @@ describe('Sign-Up Test Suite', () => {
       cy.get('#signup-firstname').type('1234568910', { delay: 5})
       cy.get('#signup-lastname').type('1234568910', { delay: 5})
       cy.get('#signup-contactNo').type('9123456789', { delay: 5})
-      cy.get('#signup-email').type('1234689@gmail.com', { delay: 5})
+      cy.get('#signup-email').type('123468910111@gmail.com', { delay: 5})
       cy.get('#signup-password').type('1234567', { delay: 5})
       cy.get('#signup-street').type('1234567', { delay: 5})
       cy.get('#signup-city').type('1234567', { delay: 5})

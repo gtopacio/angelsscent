@@ -27,7 +27,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(2000)
@@ -79,7 +79,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -127,7 +127,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -175,7 +175,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -223,7 +223,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -271,7 +271,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -319,7 +319,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -367,7 +367,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -415,7 +415,7 @@ describe('Product Inventory Suite', () => {
       cy.wait(6000)
   
       // enter home
-      cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+      cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
       cy.get('#login-password').type('admin123', { delay: 5})
       cy.get('form > .mt-4 > .row > .btn').click()
       cy.wait(2000)
@@ -463,7 +463,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(2000)
@@ -515,7 +515,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(2000)

@@ -27,7 +27,7 @@ describe('Product Inventory Suite', () => {
             cy.wait(6000)
       
             // enter home
-            cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+            cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
             cy.get('#login-password').type('admin123', { delay: 5})
             cy.get('form > .mt-4 > .row > .btn').click()
             cy.wait(8000)
@@ -35,10 +35,10 @@ describe('Product Inventory Suite', () => {
             cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
             cy.wait(6000)
     
-            cy.get('[data-bs-target="#removeProductkslu58QKf9POfESwTwFA"]').click()
+            cy.get('[data-bs-target="#removeProductHoOHYqoH18P0ue3z6tlc"]').click()
             cy.wait(10000)
 
-            cy.get('#removeProductkslu58QKf9POfESwTwFA > .modal-dialog > .modal-content > .modal-body > .container-fluid > .popup-container > .d-flex > .row > :nth-child(1) > .btn').click()
+            cy.get('#removeProductHoOHYqoH18P0ue3z6tlc > .modal-dialog > .modal-content > .modal-body > .container-fluid > .popup-container > .d-flex > .row > :nth-child(1) > .btn').click()
             cy.wait(6000)
 
             cy.contains('Alexander Test').should('not.exist')
@@ -66,7 +66,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -74,14 +74,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(6) > .col-sm-9 > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(6) > .col-sm-9 > .form-control').type('Alexander')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(6) > .col-sm-9 > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(6) > .col-sm-9 > .form-control').type('Alexander')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get(':nth-child(1) > :nth-child(1) > ins').should('have.text', 'Alexander')
@@ -108,7 +108,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -116,14 +116,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(7) > .col-sm-9 > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(7) > .col-sm-9 > .form-control').type('Polo Sport Inspired')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(7) > .col-sm-9 > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(7) > .col-sm-9 > .form-control').type('Polo Sport Inspired')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get(':nth-child(1) > .text-truncate').should('have.text','Polo Sport Inspired')
@@ -150,7 +150,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -158,14 +158,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(1) > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(1) > .form-control').type('5')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(1) > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(1) > .form-control').type('5')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(4)').should('have.text', '5')
@@ -193,7 +193,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -201,14 +201,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(2) > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(2) > .form-control').type('5')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(2) > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(10) > :nth-child(2) > .form-control').type('5')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(5)').should('have.text', '5')
@@ -236,7 +236,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -244,14 +244,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(1) > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(1) > .form-control').type('15')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(1) > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(1) > .form-control').type('15')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(6)').should('have.text', '15')
@@ -279,7 +279,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -287,14 +287,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(2) > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(2) > .form-control').type('100')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(2) > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(11) > :nth-child(2) > .form-control').type('100')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(7)').should('have.text', '100ML')
@@ -322,7 +322,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -330,14 +330,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(1) > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(1) > .form-control').type('500')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(1) > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(1) > .form-control').type('500')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(8)').should('have.text', '₱500.00')
@@ -365,7 +365,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -373,14 +373,14 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(2) > .form-control').clear()
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(2) > .form-control').type('50')
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(2) > .form-control').clear()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > :nth-child(14) > :nth-child(2) > .form-control').type('50')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(9)').should('have.text', '50')
@@ -408,7 +408,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -416,13 +416,13 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#displayoptionbBjm6qOICA5wSpPd9YbR').select('HIDDEN')
+        cy.get('#displayoptionw5lJ1ygd1GMMU6B4P3ON').select('HIDDEN')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(10)').should('have.text', 'hidden')
@@ -450,7 +450,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -458,13 +458,13 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#displayoptionbBjm6qOICA5wSpPd9YbR').select('LISTED')
+        cy.get('#displayoptionw5lJ1ygd1GMMU6B4P3ON').select('LISTED')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(10)').should('have.text', 'listed')
@@ -492,7 +492,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -500,13 +500,13 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#tagoptionbBjm6qOICA5wSpPd9YbR').select('WOMEN')
+        cy.get('#tagoptionw5lJ1ygd1GMMU6B4P3ON').select('WOMEN')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(11)').should('have.text', 'women')
@@ -534,7 +534,7 @@ describe('Product Inventory Suite', () => {
         cy.wait(6000)
   
         // enter home
-        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-email').type('admin1@gmail.com', { delay: 5})
         cy.get('#login-password').type('admin123', { delay: 5})
         cy.get('form > .mt-4 > .row > .btn').click()
         cy.wait(8000)
@@ -542,13 +542,13 @@ describe('Product Inventory Suite', () => {
         cy.get('[href="/dashboard/productinventory"] > .nav-link').click()
         cy.wait(6000)
 
-        cy.get('[data-bs-target="#edit-modalbBjm6qOICA5wSpPd9YbR"]').click()
+        cy.get('[data-bs-target="#edit-modalw5lJ1ygd1GMMU6B4P3ON"]').click()
         cy.wait(6000)
 
-        cy.get('#tagoptionbBjm6qOICA5wSpPd9YbR').select('MEN')
+        cy.get('#tagoptionw5lJ1ygd1GMMU6B4P3ON').select('MEN')
         cy.wait(3000)
 
-        cy.get('#edit-modalbBjm6qOICA5wSpPd9YbR > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
+        cy.get('#edit-modalw5lJ1ygd1GMMU6B4P3ON > .modal-dialog > .modal-content > form > .container-fluid > .pt-5 > #submit-button').click()
         cy.wait(6000)
 
         cy.get('tbody > :nth-child(1) > :nth-child(11)').should('have.text', 'men')

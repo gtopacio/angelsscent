@@ -1,5 +1,5 @@
 <template>
-<div class="modal fade" id="editVoucher" tabindex="-1">
+<div class="modal fade" :id='"editVoucher"+id' tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -55,10 +55,6 @@
 import $ from 'jquery'
 
 export default {
-    data(){
-        return{
-        }
-    },
     props:{
         id: String,
         code: String,
@@ -79,7 +75,8 @@ export default {
             /* BACKEND FOR EDITING VOUCHER */
             var dateString = this.expiry.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
             try {
-                await this.$fire.firestore.collection("vouchers").doc(this.code).set({
+                this.$fire.firestore.collection("vouchers").doc(this.id).delete();
+                this.$fire.firestore.collection("vouchers").doc(this.code).set({
                     code:this.code,
                     expiry:dateString,
                     amount:this.amount,
@@ -87,7 +84,7 @@ export default {
                     used:false
                 })
                 this.$router.app.refresh();
-                $('#editVoucher').hide();
+                $('#editVoucher'+this.$props.id).hide();
                 $('.modal-backdrop').remove();
             } catch (e) {
                 alert(e)

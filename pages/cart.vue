@@ -90,6 +90,11 @@
 import $ from 'jquery'
 import { cartAsyncData } from '../util/asyncData/cart.js'
 export default {
+    data(){
+        return{
+            voucher:''
+        }
+    },
     computed: {
         items() {
             return this.$store.state.cart.items
@@ -147,16 +152,36 @@ export default {
         //     }
         //     this.totalWeight = sum
         // },
-        checkQty(){
-            var inputVoucher = $("#voucher").val();
+        async checkQty(){
+            var inputVoucher = this.voucher;//$("#cart-voucher").val();
             var validvoucher = true;
 
             // Logic to check valid voucher here
+            if(inputVoucher.trim() !== ""){
+                validvoucher = false;
+                let doc = await this.$fire.firestore.collection('vouchers').doc(inputVoucher).get();
+                if(doc.exists){
+                    let data = await doc.data();
+                    let expiry = new Date(data.expiry);
+                    let currDate = new Date();
+                    validvoucher = expiry >= currDate;
+                    if(validvoucher){
+                        validvoucher = data.minSpend <= this.$store.state.cart.total && this.$store.state.cart.total >= data.amount;
+                    }
+                    if(data.used)
+                      validvoucher = false;
+                }
+            }
 
-            if (validvoucher == false)
+            if (validvoucher == false && typeof this.$cookies != 'undefined'){
                 $("#voucher-error").text("Invalid Voucher.");
+                this.$cookies.remove('voucher');
+            }
             else{
                 $("#voucher-error").text("");
+                if (inputVoucher.trim() !== "" && typeof this.$cookies != 'undefined'){
+                    this.$cookies.set('voucher', inputVoucher, {maxAge: 30 * 24 * 7, sameSite: true})
+                }
                 for(var i = 0; i < this.items.length; i++){
                     let docRef = this.$fire.firestore.collection('products').doc(this.items[i].productid)
                     let cartQty = this.items[i].qty

@@ -32,7 +32,8 @@ describe('Products', () => {
     });
 
     const data = {
-        items: [{id: 1}]
+        items: [{id: 1}],
+        voucher:"qwe"
     }
 
     const $fire = { firestore }
@@ -63,6 +64,7 @@ describe('Products', () => {
 
   test("checkQty", async() => {
     const wrapper = shallowMount(cart, options);
+    await wrapper.find('#cart-voucher').setValue('qwe');
     const spy = jest.spyOn(wrapper.vm, 'checkQty');
     await wrapper.find('#checkQtyBtn').trigger('click');
     expect(spy).toHaveBeenCalled();

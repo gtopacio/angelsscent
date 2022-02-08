@@ -1,0 +1,61 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=-4148
+END=6836
+title=Checkout Test Suits test case 1 -> NCR, less than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=8653
+END=17900
+title=Checkout Test Suits test case 2 -> NCR, more than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=12260
+END=27164
+title=Checkout Test Suits test case 3 -> N. Luzon, less than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=29924
+END=42106
+title=Checkout Test Suits test case 4 -> N. Luzon, more than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=42722
+END=54320
+title=Checkout Test Suits test case 5 -> S. Luzon, less than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=52407
+END=65947
+title=Checkout Test Suits test case 6 -> S. Luzon, more than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=65758
+END=79526
+title=Checkout Test Suits test case 7 -> Visayas, less than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=79497
+END=93314
+title=Checkout Test Suits test case 8 -> Visayas, more than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=93704
+END=107152
+title=Checkout Test Suits test case 9 -> Mindanao, less than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=113870
+END=120628
+title=Checkout Test Suits test case 10 -> Mindanao, more than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=105394
+END=127405
+title=Checkout Test Suits test case 11 -> Islander, less than 1 kg
+[CHAPTER]
+TIMEBASE=1/1000
+START=137508
+END=149491
+title=Checkout Test Suits test case 12 -> Islander, more than 1 kg

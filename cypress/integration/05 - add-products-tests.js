@@ -1,64 +1,68 @@
 describe('Product Inventory Suite', () => {
 
-      // it('For Sign Out Purposes', () => {
+      it('For Sign Out Purposes', () => {
     
-      //  cy.visit(Cypress.env('test_host_url'))
-      //  cy.contains('SHOP NOW')
-      //  cy.contains('SHOP NOW').trigger('mouseover').click()
+       cy.visit(Cypress.env('test_host_url'))
+       cy.contains('SHOP NOW')
+       cy.contains('SHOP NOW').trigger('mouseover').click()
       
-      //  cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
-      //  cy.get('#dashboardDropDown').trigger('mouseover').click()
-      //  cy.get(':nth-child(3) > .dropdown-item').click()
-      //  cy.wait(1000)
-      // })
+       cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
+       cy.get('#dashboardDropDown').trigger('mouseover').click()
+       cy.get(':nth-child(3) > .dropdown-item').click()
+       cy.wait(1000)
+      })
 
-    // it('test case 1 -> Successfully Added a Product', () => {
-    //     cy.visit(Cypress.env('test_host_url'))
+    it('test case 1 -> Successfully Added a Product', () => {
+        cy.visit(Cypress.env('test_host_url'))
   
-    //     // check if it landed on the landing page and go to the products page
-    //     cy.contains('SHOP NOW')
-    //     cy.contains('SHOP NOW').trigger('mouseover').click()
+        // check if it landed on the landing page and go to the products page
+        cy.contains('SHOP NOW')
+        cy.contains('SHOP NOW').trigger('mouseover').click()
         
-    //     // find the log in button
-    //     cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
-    //     cy.get('#accountDropdown').trigger('mouseover').click()
-    //     cy.wait(1000)
-    //     cy.get(':nth-child(1) > .dropdown-item').click()
-    //     cy.wait(6000)
+        // find the log in button
+        cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
+        cy.get('#accountDropdown').trigger('mouseover').click()
+        cy.wait(1000)
+        cy.get(':nth-child(1) > .dropdown-item').click()
+        cy.wait(6000)
   
-    //     // enter home
-    //     cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
-    //     cy.get('#login-password').type('admin123', { delay: 5})
-    //     cy.get('form > .mt-4 > .row > .btn').click()
-    //     cy.wait(2000)
+        // enter home
+        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-password').type('admin123', { delay: 5})
+        cy.get('form > .mt-4 > .row > .btn').click()
+        cy.wait(2000)
 
-    //     cy.get('[href="/dashboard/addproduct"] > .nav-link').click()
+        cy.get('[href="/dashboard/addproduct"] > .nav-link').click()
 
-    //     cy.get('#productName').type('Alexander', { delay: 5})
-    //     cy.get('#productDesc').type('Polo Sport Inspired', { delay: 5})
-    //     cy.get('#length').type('4', { delay: 5})
-    //     cy.get('#width').type('4', { delay: 5})
-    //     cy.get('#height').type('12', { delay: 5})
-    //     cy.get('#weight').type('50', { delay: 5})
-    //     cy.get('#price').type('300', { delay: 5})
-    //     cy.get('#quantity').type('100', { delay: 5})
+        cy.get('#productName').type('Alexander Test', { delay: 5})
+        cy.get('#productDesc').type('Polo Sport Inspired', { delay: 5})
+        cy.get('#length').type('4', { delay: 5})
+        cy.get('#width').type('4', { delay: 5})
+        cy.get('#height').type('12', { delay: 5})
+        cy.get('#weight').type('50', { delay: 5})
+        cy.get('#price').type('300', { delay: 5})
+        cy.get('#quantity').type('100', { delay: 5})
 
-    //     const filePath = 'Alexander.jpg'
+        const filePath = 'AlexanderTest.jpg'
 
-    //     cy.get('#formFile').attachFile(filePath, {delay: 60})
-    //     cy.wait(5000)
+        cy.get('#formFile').attachFile(filePath, {delay: 60})
+        cy.wait(5000)
 
-    //     cy.get('#tagoption').select('WOMEN')
+        cy.get('#tagoption').select('WOMEN')
 
-    //     cy.get('#submit').trigger('mouseover').click({delay: 60})
-    //     cy.wait(5000)
+        cy.get('#submit').trigger('mouseover').click({delay: 60})
+        cy.wait(5000)
 
-    //     cy.get('#women-tab').trigger('mouseover').click()
+        cy.get('#women-tab').trigger('mouseover').click()
 
-    //     cy.contains("Alexander")
+        cy.contains("Alexander Test")
+
+        cy.get('#dashboardDropDown').trigger('mouseover').click()
+        cy.get(':nth-child(3) > .dropdown-item').click()
+        cy.wait(1000)
 
 
-    //   })
+      })
 
     it('test case 2 -> Add Product failed due to missing Product Name', () => {
       cy.visit(Cypress.env('test_host_url'))
@@ -444,109 +448,109 @@ describe('Product Inventory Suite', () => {
  
     })
 
-      //   it('test case 10 -> Successfully Added a Product for Men', () => {
-      //   cy.visit(Cypress.env('test_host_url'))
+        it('test case 10 -> Successfully Added a Product for Men', () => {
+        cy.visit(Cypress.env('test_host_url'))
   
-      //   // check if it landed on the landing page and go to the products page
-      //   cy.contains('SHOP NOW')
-      //   cy.contains('SHOP NOW').trigger('mouseover').click()
+        // check if it landed on the landing page and go to the products page
+        cy.contains('SHOP NOW')
+        cy.contains('SHOP NOW').trigger('mouseover').click()
         
-      //   // find the log in button
-      //   cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
-      //   cy.get('#accountDropdown').trigger('mouseover').click()
-      //   cy.wait(1000)
-      //   cy.get(':nth-child(1) > .dropdown-item').click()
-      //   cy.wait(6000)
+        // find the log in button
+        cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
+        cy.get('#accountDropdown').trigger('mouseover').click()
+        cy.wait(1000)
+        cy.get(':nth-child(1) > .dropdown-item').click()
+        cy.wait(6000)
   
-      //   // enter home
-      //   cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
-      //   cy.get('#login-password').type('admin123', { delay: 5})
-      //   cy.get('form > .mt-4 > .row > .btn').click()
-      //   cy.wait(2000)
+        // enter home
+        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-password').type('admin123', { delay: 5})
+        cy.get('form > .mt-4 > .row > .btn').click()
+        cy.wait(2000)
 
-      //   cy.get('[href="/dashboard/addproduct"] > .nav-link').click()
+        cy.get('[href="/dashboard/addproduct"] > .nav-link').click()
 
-      //   cy.get('#productName').type('Alexander', { delay: 5})
-      //   cy.get('#productDesc').type('Polo Sport Inspired', { delay: 5})
-      //   cy.get('#length').type('4', { delay: 5})
-      //   cy.get('#width').type('4', { delay: 5})
-      //   cy.get('#height').type('12', { delay: 5})
-      //   cy.get('#weight').type('50', { delay: 5})
-      //   cy.get('#price').type('300', { delay: 5})
-      //   cy.get('#quantity').type('100', { delay: 5})
+        cy.get('#productName').type('Alexander', { delay: 5})
+        cy.get('#productDesc').type('Polo Sport Inspired', { delay: 5})
+        cy.get('#length').type('4', { delay: 5})
+        cy.get('#width').type('4', { delay: 5})
+        cy.get('#height').type('12', { delay: 5})
+        cy.get('#weight').type('50', { delay: 5})
+        cy.get('#price').type('300', { delay: 5})
+        cy.get('#quantity').type('100', { delay: 5})
 
-      //   const filePath = 'Alexander.jpg'
+        const filePath = 'Alexander.jpg'
 
-      //   cy.get('#formFile').attachFile(filePath, {delay: 60})
-      //   cy.wait(5000)
+        cy.get('#formFile').attachFile(filePath, {delay: 60})
+        cy.wait(5000)
 
-      //   cy.get('#tagoption').select('MEN')
+        cy.get('#tagoption').select('MEN')
 
-      //   cy.get('#submit').trigger('mouseover').click({delay: 60})
-      //   cy.wait(5000)
+        cy.get('#submit').trigger('mouseover').click({delay: 60})
+        cy.wait(5000)
 
-      //   cy.get('#men-tab').trigger('mouseover').click()
+        cy.get('#men-tab').trigger('mouseover').click()
 
-      //   cy.contains("Alexander")
+        cy.contains("Alexander")
 
-      //   cy.get('#dashboardDropDown').trigger('mouseover').click()
-      //   cy.get(':nth-child(3) > .dropdown-item').click()
-      //   cy.wait(1000)
+        cy.get('#dashboardDropDown').trigger('mouseover').click()
+        cy.get(':nth-child(3) > .dropdown-item').click()
+        cy.wait(1000)
 
 
-      // })
+      })
 
-      //   it('test case 11 -> Successfully Added a Product for Women', () => {
-      //   cy.visit(Cypress.env('test_host_url'))
+        it('test case 11 -> Successfully Added a Product for Women', () => {
+        cy.visit(Cypress.env('test_host_url'))
   
-      //   // check if it landed on the landing page and go to the products page
-      //   cy.contains('SHOP NOW')
-      //   cy.contains('SHOP NOW').trigger('mouseover').click()
+        // check if it landed on the landing page and go to the products page
+        cy.contains('SHOP NOW')
+        cy.contains('SHOP NOW').trigger('mouseover').click()
         
-      //   // find the log in button
-      //   cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
-      //   cy.get('#accountDropdown').trigger('mouseover').click()
-      //   cy.wait(1000)
-      //   cy.get(':nth-child(1) > .dropdown-item').click()
-      //   cy.wait(6000)
+        // find the log in button
+        cy.get('.account-header').should('have.text', '\r\n         Products\r\n    ')
+        cy.get('#accountDropdown').trigger('mouseover').click()
+        cy.wait(1000)
+        cy.get(':nth-child(1) > .dropdown-item').click()
+        cy.wait(6000)
   
-      //   // enter home
-      //   cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
-      //   cy.get('#login-password').type('admin123', { delay: 5})
-      //   cy.get('form > .mt-4 > .row > .btn').click()
-      //   cy.wait(2000)
+        // enter home
+        cy.get('#login-email').type('admin2@gmail.com', { delay: 5})
+        cy.get('#login-password').type('admin123', { delay: 5})
+        cy.get('form > .mt-4 > .row > .btn').click()
+        cy.wait(2000)
 
-      //   cy.get('[href="/dashboard/addproduct"] > .nav-link').click()
+        cy.get('[href="/dashboard/addproduct"] > .nav-link').click()
 
-      //   cy.get('#productName').type('Adelaide', { delay: 5})
-      //   cy.get('#productDesc').type('Burberry Inspired', { delay: 5})
-      //   cy.get('#length').type('4', { delay: 5})
-      //   cy.get('#width').type('4', { delay: 5})
-      //   cy.get('#height').type('12', { delay: 5})
-      //   cy.get('#weight').type('50', { delay: 5})
-      //   cy.get('#price').type('300', { delay: 5})
-      //   cy.get('#quantity').type('100', { delay: 5})
+        cy.get('#productName').type('Adelaide', { delay: 5})
+        cy.get('#productDesc').type('Burberry Inspired', { delay: 5})
+        cy.get('#length').type('4', { delay: 5})
+        cy.get('#width').type('4', { delay: 5})
+        cy.get('#height').type('12', { delay: 5})
+        cy.get('#weight').type('50', { delay: 5})
+        cy.get('#price').type('300', { delay: 5})
+        cy.get('#quantity').type('100', { delay: 5})
 
-      //   const filePath = 'Adelaide.jpg'
+        const filePath = 'Adelaide.jpg'
 
-      //   cy.get('#formFile').attachFile(filePath, {delay: 60})
-      //   cy.wait(5000)
+        cy.get('#formFile').attachFile(filePath, {delay: 60})
+        cy.wait(5000)
 
-      //   cy.get('#tagoption').select('WOMEN')
+        cy.get('#tagoption').select('WOMEN')
 
-      //   cy.get('#submit').trigger('mouseover').click({delay: 60})
-      //   cy.wait(5000)
+        cy.get('#submit').trigger('mouseover').click({delay: 60})
+        cy.wait(5000)
 
-      //   cy.get('#women-tab').trigger('mouseover').click()
+        cy.get('#women-tab').trigger('mouseover').click()
 
-      //   cy.contains("Adelaide")
+        cy.contains("Adelaide")
 
-      //   cy.get('#dashboardDropDown').trigger('mouseover').click()
-      //   cy.get(':nth-child(3) > .dropdown-item').click()
-      //   cy.wait(1000)
+        cy.get('#dashboardDropDown').trigger('mouseover').click()
+        cy.get(':nth-child(3) > .dropdown-item').click()
+        cy.wait(1000)
 
 
-      // })
+      })
 })
 
 Cypress.on('uncaught:exception', (err, runnable) => {

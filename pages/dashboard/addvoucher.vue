@@ -76,7 +76,7 @@
 
                                 <tbody>
                                     <tr v-for="voucher in vouchers" :key="voucher.code" :id='voucher.code'>
-                                        <td class="text-uppercase"> {{voucher.code}} </td>
+                                        <td id="voucher-code"> {{voucher.code}} </td>
                                         <td class="text-uppercase"> {{voucher.expiry}} </td>
                                         <td class="text-uppercase"> ₱{{voucher.amount}} </td>
                                         <td class="text-uppercase"> ₱{{voucher.minSpend}} </td>
@@ -184,5 +184,9 @@ export default {
     border-width: 2px 0;
     background-color:white;
     border-color: #E5E5E5;
+}
+
+#voucher-code{
+    text-transform: none;
 }
 </style>

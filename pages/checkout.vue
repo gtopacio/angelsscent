@@ -33,44 +33,26 @@
                                     </tr>
                                 </tbody>
 
-                                <tbody class="regular">
-                                    <tr>
-                                        <td class="d-flex flex-column">
-                                            <div>Total Qty</div>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{ totalQty }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="d-flex flex-column">
-                                            <div>Total Weight</div>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{ totalWeight }}g</td>
-                                    </tr>
-                                </tbody>
-
                                 <tbody v-if="data.voucher" class="regular">
                                     <tr>
-                                        <td>Voucher</td>
+                                        <td class="text-plain">VOUCHER: {{data.voucher.code}}</td>
                                         <td></td>
                                         <td></td>
                                         <td>-₱{{ data.voucher.amount }}</td>
                                     </tr>
                                 </tbody>
 
-                                <tbody class="regular">
+                                <tfoot class="regular">
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ totalWeight }}g</td>
+                                        <td>{{ totalQty }}</td>
                                         <td>₱{{ total }}.00</td>
                                     </tr>
-                                </tbody>
-
+                                </tfoot>
+                            </table>
+                            <br>
+                            <table class="table text-center text-uppercase my-2">
                                 <thead>
                                     <tr>
                                         <th scope="col">Box Name</th>
@@ -336,6 +318,15 @@ table > tbody > tr > td {
 
 .details{
     color: #79808F;
+}
+
+tfoot{
+    background-color: #9F9A96;
+    color: white;
+}
+
+.text-plain{
+    text-transform: none;
 }
 
 </style>

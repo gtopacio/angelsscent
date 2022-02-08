@@ -56,7 +56,6 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Box Name</th>
-                                        <th scope="col">Box Fee</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Price</th>
                                     </tr>
@@ -67,14 +66,12 @@
                                       <td>
                                           <div>{{ box.name }}</div>
                                       </td>
-                                      <td>₱{{ box.boxFee }}</td>
                                       <td>{{ box.qty }}</td>
                                       <td>₱{{ box.price }}.00</td>
                                   </tr>
 
                                   <tr>
                                       <td>Shipping Fee ({{data.region}})</td>
-                                      <td></td>
                                       <td></td>
                                       <td>₱{{ data.shippingPrice }}.00</td>
                                   </tr>
@@ -83,7 +80,6 @@
                                 <tfoot class="regular">
                                     <tr>
                                         <td>Total</td>
-                                        <td></td>
                                         <td></td>
                                         <td>₱{{ data.grandTotal }}.00</td>
                                     </tr>
